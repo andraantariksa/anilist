@@ -12,7 +12,19 @@
         <fragment
             android:id="@+id/navigation_home_main"
             android:name="id.shaderboi.anilist.ui.home.HomeFragment"
-            tools:layout="@layout/fragment_home" />
+            tools:layout="@layout/fragment_home" >
+            <action
+                android:id="@+id/action_navigation_home_main_to_navigation_home_anime"
+                app:destination="@id/navigation_home_anime" />
+        </fragment>
+        <fragment
+            android:id="@+id/navigation_home_anime"
+            android:name="id.shaderboi.anilist.ui.anime.AnimeFragment"
+            tools:layout="@layout/fragment_anime" >
+            <argument
+                android:name="id"
+                app:argType="integer" />
+        </fragment>
     </navigation>
 
     <navigation

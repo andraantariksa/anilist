@@ -3,9 +3,13 @@ buildscript {
     ext {
         navVersion = "2.4.1"
         hiltVersion = "2.41"
+        roomVersion = "2.4.2"
+        moshiVersion = "1.13.0"
+        retrofitVersion = "2.9.0"
     }
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.41"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
     }
 }

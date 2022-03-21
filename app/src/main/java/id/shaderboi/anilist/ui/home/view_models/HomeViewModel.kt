@@ -2,18 +2,28 @@ package id.shaderboi.anilist.ui.home.view_models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.scopes.ViewModelScoped
-import id.shaderboi.anilist.ui.search.view_models.SearchEvent
-import id.shaderboi.anilist.ui.search.view_models.SearchUIEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
+import id.shaderboi.anilist.core.domain.model.anime_search.AnimeSearch
+import id.shaderboi.anilist.core.domain.use_case.AnimeUseCases
+import id.shaderboi.anilist.ui.util.ResourceState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@ViewModelScoped
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val animeUseCases: AnimeUseCases
+) : ViewModel() {
     private val _uiEvent = MutableSharedFlow<HomeUIEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
+
+    private val _animeList =
+        MutableStateFlow<ResourceState<AnimeSearch, Throwable>>(ResourceState.Loading())
+    val animeList = _animeList.asStateFlow()
 
     init {
         onEvent(HomeEvent.Load)
@@ -26,7 +36,12 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun loadAnime() = viewModelScope.launch(Dispatchers.IO) {
-            _uiEvent.emit(HomeUIEvent.Loading)
-//        _uiEvent.emit(HomeUIEvent.AnimeLoaded())
+        _animeList.emit(ResourceState.Loading())
+        val animeList = animeUseCases.listAnimeUseCase()
+        if (animeList.isSuccess) {
+            _animeList.emit(ResourceState.Loaded(animeList.getOrNull()!!))
+        } else {
+            _animeList.emit(ResourceState.Error(animeList.exceptionOrNull()!!))
+        }
     }
 }

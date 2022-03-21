@@ -1,5 +1,5 @@
 package id.shaderboi.anilist.core.data.exception
 
-import java.lang.RuntimeException
+import java.io.IOException
 
-class NoNetworkException: RuntimeException("No network available")
+class NoNetworkException: IOException("No network available")

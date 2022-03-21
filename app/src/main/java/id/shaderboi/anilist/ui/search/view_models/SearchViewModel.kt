@@ -2,6 +2,7 @@ package id.shaderboi.anilist.ui.search.view_models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -9,9 +10,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@ViewModelScoped
-class SearchViewModel : ViewModel() {
+@HiltViewModel
+class SearchViewModel @Inject constructor(): ViewModel() {
     private val _uiEvent = MutableSharedFlow<SearchUIEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 

@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import id.shaderboi.anilist.databinding.FragmentHomeBinding
 import id.shaderboi.anilist.ui.common.adapters.AnimeAdapter
-import id.shaderboi.anilist.ui.home.view_models.HomeUIEvent
 import id.shaderboi.anilist.ui.home.view_models.HomeViewModel
-import id.shaderboi.anilist.ui.search.view_models.SearchUIEvent
-import id.shaderboi.anilist.ui.search.view_models.SearchViewModel
+import id.shaderboi.anilist.ui.util.ResourceState
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
@@ -28,25 +27,6 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-//        val navController = findNavController()
-//
-//        with(binding.toolbar) {
-//            setupWithNavController(navController)
-//            setOnMenuItemClickListener {
-//                when(it.itemId) {
-//                    R.id.itemSearch -> {
-//
-//                        true
-//                    }
-//                    R.id.itemSort -> {
-//
-//                        true
-//                    }
-//                    else -> false
-//                }
-//            }
-//        }
-
         listenEvent()
 
         return binding.root
@@ -58,15 +38,32 @@ class HomeFragment : Fragment() {
     }
 
     private fun listenEvent() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+        homeViewModel.animeList.collectLatest { res ->
+            when (res) {
+                is ResourceState.Error -> {
+                    binding.textViewErrorMessage.text = res.error.message
+                    binding.recyclerViewAnimes.visibility = View.GONE
+                    binding.linearLayoutErrorAnimation.visibility = View.VISIBLE
+                    binding.linearLayoutLoadingAnimation.visibility = View.GONE
+                }
+                is ResourceState.Loading -> {
+                    binding.recyclerViewAnimes.visibility = View.GONE
+                    binding.linearLayoutErrorAnimation.visibility = View.GONE
+                    binding.linearLayoutLoadingAnimation.visibility = View.VISIBLE
+                }
+                is ResourceState.Loaded -> {
+                    val navController = binding.root.findNavController()
+                    binding.recyclerViewAnimes.adapter = AnimeAdapter(res.data.data, navController)
+
+                    binding.recyclerViewAnimes.visibility = View.VISIBLE
+                    binding.linearLayoutErrorAnimation.visibility = View.GONE
+                    binding.linearLayoutLoadingAnimation.visibility = View.GONE
+                }
+            }
+        }
+
         homeViewModel.uiEvent.collectLatest { event ->
             when (event) {
-                HomeUIEvent.Loading -> {
-                    binding.recyclerViewAnimes.visibility = View.GONE
-                    binding.linearLayoutSearchAnimation.visibility = View.VISIBLE
-                }
-//                is SearchUIEvent.Search -> {
-//                    binding.recyclerViewAnimes.adapter = AnimeAdapter(event.anime)
-//                }
             }
         }
     }

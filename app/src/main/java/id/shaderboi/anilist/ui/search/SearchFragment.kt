@@ -47,22 +47,22 @@ class SearchFragment : Fragment() {
             when (event) {
                 SearchUIEvent.Start -> {
                     binding.recyclerViewSearchedAnime.visibility = View.GONE
-                    binding.linearLayoutSearchAnimation.visibility = View.GONE
+                    binding.linearLayoutLoadingAnimation.visibility = View.GONE
                     binding.linearLayoutIdleImage.visibility = View.VISIBLE
                 }
                 SearchUIEvent.Loading -> {
                     binding.recyclerViewSearchedAnime.visibility = View.GONE
                     binding.linearLayoutIdleImage.visibility = View.GONE
-                    binding.linearLayoutSearchAnimation.visibility = View.VISIBLE
+                    binding.linearLayoutLoadingAnimation.visibility = View.VISIBLE
                 }
                 SearchUIEvent.Error -> {
                     binding.recyclerViewSearchedAnime.visibility = View.GONE
-                    binding.linearLayoutSearchAnimation.visibility = View.GONE
+                    binding.linearLayoutLoadingAnimation.visibility = View.GONE
                     binding.linearLayoutIdleImage.visibility = View.GONE
                 }
                 is SearchUIEvent.Loaded -> {
                     binding.recyclerViewSearchedAnime.visibility = View.VISIBLE
-                    binding.linearLayoutSearchAnimation.visibility = View.GONE
+                    binding.linearLayoutLoadingAnimation.visibility = View.GONE
                     binding.linearLayoutIdleImage.visibility = View.GONE
                 }
             }
