@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/navigation_home">
+
+    <navigation
+        android:id="@+id/navigation_home"
+        app:startDestination="@id/navigation_home_main"
+        android:label="Home">
+        <fragment
+            android:id="@+id/navigation_home_main"
+            android:name="id.shaderboi.anilist.ui.home.HomeFragment"
+            tools:layout="@layout/fragment_home" />
+    </navigation>
+
+    <navigation
+        android:id="@+id/navigation_search"
+        app:startDestination="@id/navigation_search_main"
+        android:label="Search">
+        <fragment
+            android:id="@+id/navigation_search_main"
+            android:name="id.shaderboi.anilist.ui.search.SearchFragment"
+            tools:layout="@layout/fragment_search" />
+    </navigation>
+
+    <navigation
+        android:id="@+id/navigation_misc"
+        app:startDestination="@id/navigation_misc_main"
+        android:label="Misc">
+        <fragment
+            android:id="@+id/navigation_misc_main"
+            android:name="id.shaderboi.anilist.ui.misc.MiscFragment"
+            android:label="Misc"
+            tools:layout="@layout/fragment_misc" />
+    </navigation>
+
+</navigation>
