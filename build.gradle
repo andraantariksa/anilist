@@ -6,10 +6,15 @@ buildscript {
         roomVersion = "2.4.2"
         moshiVersion = "1.13.0"
         retrofitVersion = "2.9.0"
+        flexboxVersion = "3.0.0"
+        lottieVersion = "5.0.3"
+        timberVersion = "5.0.1"
+        chuckerVersion = "3.5.2"
     }
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.41"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:1.6.10"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
     }
 }

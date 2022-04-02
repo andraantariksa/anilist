@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "Anilist"
 include ':app'
 include ':core'
-include ':favorite'
+include ':favorite_anime'

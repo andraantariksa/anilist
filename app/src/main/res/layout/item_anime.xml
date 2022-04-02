@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:divider="@drawable/divider16dp"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:paddingEnd="5dp"
+    android:showDividers="middle">
+
+    <FrameLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/imageViewCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#80FFFFFF"
+                android:divider="@drawable/divider8dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="5dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="3dp"
+                android:showDividers="middle">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_baseline_star_24" />
+
+                <TextView
+                    android:id="@+id/textViewScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="7.35" />
+            </LinearLayout>
+        </FrameLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider8dp"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            android:textSize="16sp"
+            android:textStyle="normal|bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/divider8dp"
+            android:orientation="horizontal"
+            android:showDividers="middle">
+
+            <TextView
+                android:id="@+id/textViewType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Movie" />
+
+            <TextView
+                android:id="@+id/textViewEpisode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="1 ep" />
+
+            <TextView
+                android:id="@+id/textViewYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="2018" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewGenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Drama, Slice of Life, Mystery, Sci-fi, Romance, School" />
+
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxHeight="50dp"
+            android:text="Nulla convallis aliquet neque at vehicula. Cras tristique elit sit amet magna rhoncus suscipit. Nullam ultricies lacus orci, et euismod elit finibus sed. Maecenas eget placerat nunc. Aenean eget tellus sit amet ligula feugiat dapibus sed in ligula. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque elit turpis, porttitor euismod purus nec, ornare tempor diam. Etiam convallis dui varius metus ornare lobortis ac at ante. Nulla et lacus semper, ultricies metus vel, venenatis odio. Pellentesque dictum elit in arcu posuere euismod. Vivamus non lectus vitae ligula sodales venenatis a vel massa. Donec sed metus id urna lacinia egestas. Nullam mollis, nulla in fringilla porttitor, est sapien fringilla velit, quis varius urna justo a nunc. Aliquam pulvinar lorem nec mattis sagittis. Aliquam faucibus diam sem, eget egestas ipsum pulvinar at." />
+
+    </LinearLayout>
+</LinearLayout>

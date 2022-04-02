@@ -6,6 +6,10 @@
         android:icon="@drawable/ic_baseline_explore_24"
         android:title="Discover" />
     <item
+        android:id="@+id/navigation_favorite"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="Favorite" />
+    <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_baseline_search_24"
         android:title="Search" />

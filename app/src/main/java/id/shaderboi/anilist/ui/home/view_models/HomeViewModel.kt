@@ -3,8 +3,8 @@ package id.shaderboi.anilist.ui.home.view_models
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.shaderboi.anilist.core.domain.model.anime_search.AnimeSearch
-import id.shaderboi.anilist.core.domain.use_case.AnimeUseCases
+import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
+import id.shaderboi.anilist.core.domain.use_case.anime.AnimeUseCases
 import id.shaderboi.anilist.ui.util.ResourceState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
     val uiEvent = _uiEvent.asSharedFlow()
 
     private val _animeList =
-        MutableStateFlow<ResourceState<AnimeSearch, Throwable>>(ResourceState.Loading())
+        MutableStateFlow<ResourceState<List<AnimeData>, Throwable>>(ResourceState.Loading())
     val animeList = _animeList.asStateFlow()
 
     init {

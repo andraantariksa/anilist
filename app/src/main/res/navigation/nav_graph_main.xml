@@ -2,45 +2,80 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:id="@+id/nav_graph_main"
     app:startDestination="@id/navigation_home">
 
     <navigation
         android:id="@+id/navigation_home"
-        app:startDestination="@id/navigation_home_main"
-        android:label="Home">
+        android:label="Home"
+        app:startDestination="@id/navigation_home_main">
         <fragment
             android:id="@+id/navigation_home_main"
             android:name="id.shaderboi.anilist.ui.home.HomeFragment"
-            tools:layout="@layout/fragment_home" >
+            tools:layout="@layout/fragment_home">
             <action
-                android:id="@+id/action_navigation_home_main_to_navigation_home_anime"
-                app:destination="@id/navigation_home_anime" />
+                android:id="@+id/action_navigation_home_main_to_navigation_common_anime"
+                app:destination="@id/navigation_common_anime" />
         </fragment>
         <fragment
-            android:id="@+id/navigation_home_anime"
+            android:id="@+id/navigation_common_anime"
             android:name="id.shaderboi.anilist.ui.anime.AnimeFragment"
-            tools:layout="@layout/fragment_anime" >
+            tools:layout="@layout/fragment_anime">
             <argument
-                android:name="id"
+                android:name="malId"
+                app:argType="integer" />
+        </fragment>
+    </navigation>
+
+    <navigation
+        android:id="@+id/navigation_favorite"
+        android:label="Search"
+        app:startDestination="@id/navigation_favorite_main">
+        <fragment
+            android:id="@+id/navigation_favorite_main"
+            android:name="id.shaderboi.anilist.favorite_anime.ui.FavoriteAnimeFragment"
+            tools:layout="@layout/fragment_favorite">
+            <action
+                android:id="@+id/action_navigation_favorite_main_to_navigation_common_anime"
+                app:destination="@id/navigation_common_anime" />
+        </fragment>
+        <fragment
+            android:id="@+id/navigation_common_anime"
+            android:name="id.shaderboi.anilist.ui.anime.AnimeFragment"
+            tools:layout="@layout/fragment_anime">
+            <argument
+                android:name="malId"
                 app:argType="integer" />
         </fragment>
     </navigation>
 
     <navigation
         android:id="@+id/navigation_search"
-        app:startDestination="@id/navigation_search_main"
-        android:label="Search">
+        android:label="Search"
+        app:startDestination="@id/navigation_search_main">
         <fragment
             android:id="@+id/navigation_search_main"
             android:name="id.shaderboi.anilist.ui.search.SearchFragment"
-            tools:layout="@layout/fragment_search" />
-    </navigation>
+            tools:layout="@layout/fragment_search" >
+            <action
+                android:id="@+id/action_navigation_search_main_to_navigation_common_anime"
+                app:destination="@id/navigation_common_anime" />
+        </fragment>
 
+        <fragment
+            android:id="@+id/navigation_common_anime"
+            android:name="id.shaderboi.anilist.ui.anime.AnimeFragment"
+            tools:layout="@layout/fragment_anime">
+            <argument
+                android:name="malId"
+                app:argType="integer" />
+        </fragment>
+    </navigation>
     <navigation
         android:id="@+id/navigation_misc"
-        app:startDestination="@id/navigation_misc_main"
-        android:label="Misc">
+        android:label="Misc"
+        app:startDestination="@id/navigation_misc_main">
         <fragment
             android:id="@+id/navigation_misc_main"
             android:name="id.shaderboi.anilist.ui.misc.MiscFragment"

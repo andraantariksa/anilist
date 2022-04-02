@@ -53,7 +53,11 @@ class HomeFragment : Fragment() {
                 }
                 is ResourceState.Loaded -> {
                     val navController = binding.root.findNavController()
-                    binding.recyclerViewAnimes.adapter = AnimeAdapter(res.data.data, navController)
+                    binding.recyclerViewAnimes.adapter = AnimeAdapter(res.data, navController) { anime, position, view ->
+                        val action = HomeFragmentDirections
+                            .actionNavigationHomeMainToNavigationCommonAnime(anime.malId)
+                        navController.navigate(action)
+                    }
 
                     binding.recyclerViewAnimes.visibility = View.VISIBLE
                     binding.linearLayoutErrorAnimation.visibility = View.GONE

@@ -22,10 +22,11 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:theme="@style/Toolbar"
+            android:elevation="12dp"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_collapseMode="pin" />
+            app:layout_collapseMode="pin"
+            app:title="Discover" />
         <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -41,7 +42,7 @@
             android:visibility="gone"
             app:layoutManager="LinearLayoutManager"
             tools:itemCount="10"
-            tools:listitem="@layout/list_item_anime"
+            tools:listitem="@layout/item_anime"
             tools:visibility="visible" />
 
         <LinearLayout

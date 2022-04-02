@@ -7,11 +7,15 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import id.shaderboi.anilist.databinding.FragmentSearchBinding
+import id.shaderboi.anilist.ui.common.adapters.AnimeAdapter
+import id.shaderboi.anilist.ui.home.HomeFragmentDirections
 import id.shaderboi.anilist.ui.search.view_models.SearchEvent
 import id.shaderboi.anilist.ui.search.view_models.SearchUIEvent
 import id.shaderboi.anilist.ui.search.view_models.SearchViewModel
+import id.shaderboi.anilist.ui.util.ResourceState
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
@@ -43,29 +47,51 @@ class SearchFragment : Fragment() {
     }
 
     private fun listenEvent() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-        searchViewModel.uiEvent.collectLatest { event ->
+        searchViewModel.searchResult.collectLatest { event ->
             when (event) {
-                SearchUIEvent.Start -> {
-                    binding.recyclerViewSearchedAnime.visibility = View.GONE
+                null -> {
+                    binding.frameLayoutLoaded.visibility = View.GONE
                     binding.linearLayoutLoadingAnimation.visibility = View.GONE
+                    binding.linearLayoutErrorAnimation.visibility = View.GONE
                     binding.linearLayoutIdleImage.visibility = View.VISIBLE
                 }
-                SearchUIEvent.Loading -> {
-                    binding.recyclerViewSearchedAnime.visibility = View.GONE
-                    binding.linearLayoutIdleImage.visibility = View.GONE
+                is ResourceState.Loading -> {
+                    binding.frameLayoutLoaded.visibility = View.GONE
                     binding.linearLayoutLoadingAnimation.visibility = View.VISIBLE
-                }
-                SearchUIEvent.Error -> {
-                    binding.recyclerViewSearchedAnime.visibility = View.GONE
-                    binding.linearLayoutLoadingAnimation.visibility = View.GONE
+                    binding.linearLayoutErrorAnimation.visibility = View.GONE
                     binding.linearLayoutIdleImage.visibility = View.GONE
                 }
-                is SearchUIEvent.Loaded -> {
-                    binding.recyclerViewSearchedAnime.visibility = View.VISIBLE
+                is ResourceState.Error -> {
+                    binding.frameLayoutLoaded.visibility = View.GONE
                     binding.linearLayoutLoadingAnimation.visibility = View.GONE
+                    binding.linearLayoutErrorAnimation.visibility = View.VISIBLE
+                    binding.linearLayoutIdleImage.visibility = View.GONE
+                }
+                is ResourceState.Loaded -> {
+                    if (event.data.isEmpty()) {
+                        binding.recyclerViewSearchedAnime.visibility = View.GONE
+                        binding.linearLayoutNoResultAnimation.visibility = View.VISIBLE
+                    } else {
+                        val navController = binding.root.findNavController()
+                        binding.recyclerViewSearchedAnime.adapter =
+                            AnimeAdapter(event.data, navController)  { anime, position, view ->
+                                val action = SearchFragmentDirections
+                                    .actionNavigationSearchMainToNavigationCommonAnime(anime.malId)
+                                navController.navigate(action)
+                            }
+                        binding.recyclerViewSearchedAnime.visibility = View.VISIBLE
+                        binding.linearLayoutNoResultAnimation.visibility = View.GONE
+                    }
+
+                    binding.frameLayoutLoaded.visibility = View.VISIBLE
+                    binding.linearLayoutLoadingAnimation.visibility = View.GONE
+                    binding.linearLayoutErrorAnimation.visibility = View.GONE
                     binding.linearLayoutIdleImage.visibility = View.GONE
                 }
             }
+        }
+
+        searchViewModel.uiEvent.collectLatest { event ->
         }
     }
 }

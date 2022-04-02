@@ -21,13 +21,12 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:paddingStart="10dp"
             android:paddingTop="5dp"
             android:paddingEnd="10dp"
             android:paddingBottom="5dp"
-            android:theme="?attr/actionBarTheme"
+            android:theme="@style/Toolbar"
             app:contentInsetStart="0dp"
             app:layout_collapseMode="pin">
 
@@ -42,11 +41,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewSearchedAnime"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone" />
+            android:id="@+id/frameLayoutLoaded">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutNoResultAnimation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingStart="50dp"
+                android:paddingEnd="50dp"
+                android:visibility="gone">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="wrap_content"
+                    android:layout_height="316dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/no_result_found" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No result found!"
+                    android:textAlignment="center"
+                    android:textSize="34sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Maybe you have mistyped the title or...?"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewSearchedAnime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:layoutManager="LinearLayoutManager"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_anime"
+                tools:visibility="visible" />
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/linearLayoutLoadingAnimation"
@@ -85,6 +125,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/clumsy" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutErrorAnimation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:visibility="gone">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="wrap_content"
+                android:layout_height="316dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/error" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Whoops!"
+                android:textAlignment="center"
+                android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/textViewErrorMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                tools:text="ERROR" />
         </LinearLayout>
     </FrameLayout>
 

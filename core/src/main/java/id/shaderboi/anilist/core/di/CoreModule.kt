@@ -8,15 +8,20 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import id.shaderboi.anilist.core.data.data_source.local.AnimeLocalDataSource
-import id.shaderboi.anilist.core.data.data_source.local.database.AnilistDatabase
-import id.shaderboi.anilist.core.data.data_source.local.database.converter.AnimeConverter
-import id.shaderboi.anilist.core.data.data_source.local.database.converter.MoshiJSONParser
-import id.shaderboi.anilist.core.data.data_source.remote.AnimeRemoteDataSource
-import id.shaderboi.anilist.core.data.data_source.remote.network.JikanAPIService
-import id.shaderboi.anilist.core.data.data_source.remote.network.NetworkInterceptor
+import id.shaderboi.anilist.core.data.data_source_store.local.AnimeLocalDataSource
+import id.shaderboi.anilist.core.data.data_source_store.local.AnimeLocalDataStore
+import id.shaderboi.anilist.core.data.data_source_store.local.FavoriteAnimeLocalDataSource
+import id.shaderboi.anilist.core.data.data_source_store.local.FavoriteAnimeLocalDataStore
+import id.shaderboi.anilist.core.data.data_source_store.local.database.AnilistDatabase
+import id.shaderboi.anilist.core.data.data_source_store.local.database.converter.AnimeConverter
+import id.shaderboi.anilist.core.data.data_source_store.local.database.converter.MoshiJSONParser
+import id.shaderboi.anilist.core.data.data_source_store.remote.AnimeRemoteDataSource
+import id.shaderboi.anilist.core.data.data_source_store.remote.network.JikanAPIService
+import id.shaderboi.anilist.core.data.data_source_store.remote.network.NetworkInterceptor
 import id.shaderboi.anilist.core.data.repository.AnimeRepositoryImpl
+import id.shaderboi.anilist.core.data.repository.FavoriteAnimeRepositoryImpl
 import id.shaderboi.anilist.core.domain.repository.AnimeRepository
+import id.shaderboi.anilist.core.domain.repository.FavoriteAnimeRepository
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -53,11 +58,25 @@ object CoreModule {
     @Provides
     fun provideAnimeRepository(
         remoteDataSource: AnimeRemoteDataSource,
-        localDataSource: AnimeLocalDataSource
+        localDataSource: AnimeLocalDataSource,
+        localDataStore: AnimeLocalDataStore
     ): AnimeRepository {
         return AnimeRepositoryImpl(
             remoteDataSource,
-            localDataSource
+            localDataSource,
+            localDataStore
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideFavoriteAnimeRepository(
+        localDataSource: FavoriteAnimeLocalDataSource,
+        localDataStore: FavoriteAnimeLocalDataStore
+    ): FavoriteAnimeRepository {
+        return FavoriteAnimeRepositoryImpl(
+            localDataSource,
+            localDataStore
         )
     }
 }

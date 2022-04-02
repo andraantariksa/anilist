@@ -1,98 +1,321 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:liftOnScroll="true">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:expandedTitleGravity="bottom"-->
-        <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:title=""
+            app:liftOnScroll="true">
 
-            app:layout_collapseMode="pin" />
-        <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
-    </com.google.android.material.appbar.AppBarLayout>
+            <!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            app:expandedTitleGravity="bottom"-->
+            <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/linearLayoutContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutLoadingAnimation"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingStart="50dp"
-            android:paddingEnd="50dp"
-            tools:visibility="gone">
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/loading_box" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayoutErrorAnimation"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingStart="50dp"
-            android:paddingEnd="50dp"
-            android:visibility="gone">
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="wrap_content"
-                android:layout_height="316dp"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/error" />
-
-            <TextView
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Whoops!"
-                android:textAlignment="center"
-                android:textSize="34sp" />
+                android:background="?attr/colorPrimary"
+                android:elevation="12dp"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/Toolbar"
+                app:layout_collapseMode="pin"
+                tools:title="Mahouka koukou no rettousei Mahouka koukou no rettousei Mahouka koukou no rettousei">
 
-            <TextView
-                android:id="@+id/textViewErrorMessage"
+            </androidx.appcompat.widget.Toolbar>
+
+            <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
                 android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@drawable/divider8dp"
+                        android:orientation="vertical"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:showDividers="middle">
+
+                        <com.google.android.flexbox.FlexboxLayout
+                            android:id="@+id/flexboxLayoutInfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:dividerDrawable="@drawable/divider8dp"
+                            app:flexWrap="wrap"
+                            app:showDivider="middle" />
+
+                        <ImageView
+                            android:id="@+id/imageViewCover"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:adjustViewBounds="true"
+                            android:maxWidth="300dp"
+                            android:maxHeight="300dp"
+                            android:scaleType="centerInside"
+                            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+                        <androidx.gridlayout.widget.GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:columnCount="2"
+                            app:useDefaultMargins="true">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Licensor"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewLicensor"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Funimation, Bandai Entertainment, Sunrise" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Aired"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewAired"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Jul 2, 2002 to Dec 24, 2002" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Duration"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewDuration"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="25 min per ep " />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Season"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewSeason"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="summer" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Source"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewSource"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Manga" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Rating"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewRating"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="PG-13 - Teens 13 or older" />
+                            </LinearLayout>
+                        </androidx.gridlayout.widget.GridLayout>
+
+                        <com.google.android.flexbox.FlexboxLayout
+                            android:id="@+id/flexboxLayoutGenres"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:dividerDrawable="@drawable/divider8dp"
+                            app:flexWrap="wrap"
+                            app:justifyContent="center"
+                            app:showDivider="middle"
+                            tools:layout_height="30dp" />
+
+                        <com.google.android.flexbox.FlexboxLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:dividerDrawable="@drawable/divider8dp"
+                            app:flexDirection="row"
+                            app:flexWrap="wrap"
+                            app:justifyContent="center"
+                            app:showDivider="middle">
+
+                            <TextView
+                                android:id="@+id/textViewType"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="Movie" />
+
+                            <TextView
+                                android:id="@+id/textViewEpisode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="1 ep" />
+
+                            <TextView
+                                android:id="@+id/textViewAiringStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="Finished Airing" />
+
+                        </com.google.android.flexbox.FlexboxLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:divider="@drawable/divider8dp"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Synopsis"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewSynopsis"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="Gintoki, Shinpachi, and Kagura return as the fun-loving but broke members of the Yorozuya team! Living in an alternate-reality Edo, where swords are prohibited and alien overlords have conquered Japan, they try to thrive on doing whatever work they can get their hands on. However, Shinpachi and Kagura still haven't been paid... Does Gin-chan really spend all that cash playing pachinko?  Meanwhile, when Gintoki drunkenly staggers home one night, an alien spaceship crashes nearby. A fatally injured crew member emerges from the ship and gives Gintoki a strange, clock-shaped device, warning him that it is incredibly powerful and must be safeguarded. Mistaking it for his alarm clock," />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutYoutube"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:divider="@drawable/divider8dp"
+                            android:orientation="vertical"
+                            android:showDividers="middle"
+                            android:visibility="gone"
+                            tools:visibility="visible">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Trailer"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                                android:id="@+id/youtubePlayerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:autoPlay="false"
+                                app:enableAutomaticInitialization="false" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <include
+                        android:id="@+id/includeViewErrorAnimation"
+                        layout="@layout/view_error_animation" />
+
+                    <include
+                        android:id="@+id/includeViewLoadingAnimation"
+                        layout="@layout/view_loading_animation" />
+                </FrameLayout>
+            </ScrollView>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                tools:text="ERROR" />
-        </LinearLayout>
-    </FrameLayout>
-</LinearLayout>
+                android:layout_gravity="bottom|end"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingActionButtonFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:contentDescription="Set as favorite anime"
+                    android:src="@drawable/ic_baseline_favorite_24" />
+            </FrameLayout>
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>
