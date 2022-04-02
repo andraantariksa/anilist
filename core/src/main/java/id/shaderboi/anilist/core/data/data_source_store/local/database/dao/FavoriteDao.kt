@@ -10,6 +10,12 @@ interface FavoriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFavoriteAnime(anime: FavoriteAnimeEntity)
 
+    @Query("SELECT * FROM anime_favorite WHERE animeId = :animeId")
+    fun getFavoriteAnimeDetail(animeId: Int): Flow<FavoriteAnimeEntity?>
+
+    @Query("DELETE FROM anime_favorite WHERE animeId = :animeId")
+    fun deleteFavoriteAnime(animeId: Int)
+
     @Transaction
     @Query("SELECT * FROM anime_favorite")
     fun getFavoriteAnime(): Flow<List<FavoriteAnimeJoinedEntity>>

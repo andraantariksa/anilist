@@ -16,4 +16,8 @@ class FavoriteAnimeLocalDataSource @Inject constructor(
     override suspend fun getFavoriteAnime(): Flow<List<FavoriteAnimeJoinedEntity>> {
         return favoriteDao.getFavoriteAnime()
     }
+
+    override suspend fun getFavoriteAnimeDetail(id: Int): Flow<FavoriteAnimeEntity?> {
+        return favoriteDao.getFavoriteAnimeDetail(id)
+    }
 }

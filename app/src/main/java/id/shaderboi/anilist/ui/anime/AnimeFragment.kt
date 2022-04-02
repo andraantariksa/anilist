@@ -1,10 +1,12 @@
 package id.shaderboi.anilist.ui.anime
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,7 +15,6 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import dagger.hilt.android.AndroidEntryPoint
 import id.shaderboi.anilist.R
 import id.shaderboi.anilist.databinding.FragmentAnimeBinding
@@ -129,16 +130,25 @@ class AnimeFragment : Fragment() {
                     binding.includeViewErrorAnimation.root.visibility = View.GONE
                     binding.includeViewLoadingAnimation.root.visibility = View.GONE
 
-                    binding.floatingActionButtonFavorite.setOnClickListener {
-                        animeViewModel.onEvent(AnimeEvent.SetAnimeAsFavorite(args.malId))
+                    animeViewModel.isFavoriteAnime.collectLatest { isFavorite ->
+                        val color = ContextCompat.getColor(
+                            requireContext(),
+                            if (isFavorite) R.color.purple_500 else R.color.black
+                        )
+                        binding.floatingActionButtonFavorite.backgroundTintList =
+                            ColorStateList.valueOf(color)
+
+                        binding.floatingActionButtonFavorite.setOnClickListener {
+                            animeViewModel.onEvent(AnimeEvent.ToggleAnimeFavorite(args.malId))
+                        }
                     }
                 }
             }
         }
 
-        animeViewModel.uiEvent.collectLatest { event ->
-            when (event) {
-            }
-        }
+//        animeViewModel.uiEvent.collectLatest { event ->
+//            when (event) {
+//            }
+//        }
     }
 }

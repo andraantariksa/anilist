@@ -11,11 +11,15 @@ import javax.inject.Inject
 class FavoriteAnimeLocalDataStore @Inject constructor(
     anilistDatabase: AnilistDatabase
 ) : FavoriteAnimeDataStore {
-    val favoriteDao = anilistDatabase.favoriteDao()
+    private val favoriteDao = anilistDatabase.favoriteDao()
 
     override suspend fun addFavoriteAnime(animeId: Int) {
         return favoriteDao.insertFavoriteAnime(
             FavoriteAnimeEntity(animeId)
         )
+    }
+
+    override suspend fun deleteFavoriteAnime(animeId: Int) {
+        favoriteDao.deleteFavoriteAnime(animeId)
     }
 }

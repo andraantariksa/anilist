@@ -4,5 +4,7 @@ import javax.inject.Inject
 
 data class FavoriteAnimeUseCases @Inject constructor(
     val listFavoriteAnime: ListFavoriteAnimeUseCase,
-    val addFavoriteAnime: AddFavoriteAnimeUseCase
+    val addFavoriteAnime: AddFavoriteAnimeUseCase,
+    val getFavoriteAnime: GetFavoriteAnimeUseCase,
+    val deleteFavoriteAnime: DeleteFavoriteAnimeUseCase
 )
