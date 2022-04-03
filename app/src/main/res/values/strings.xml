@@ -3,4 +3,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_favorite">Favorite</string>
+    <string name="english_title">English Title</string>
+    <string name="japanese_title">Japanese Title</string>
+    <string name="alternative_title">Alternative Title</string>
+    <string name="licensor">Licensor</string>
+    <string name="aired">Aired</string>
+    <string name="share">Share</string>
+    <string name="set_as_favorite_anime">Set as favorite anime</string>
 </resources>

@@ -26,7 +26,6 @@
             android:paddingTop="5dp"
             android:paddingEnd="10dp"
             android:paddingBottom="5dp"
-            android:theme="@style/Toolbar"
             app:contentInsetStart="0dp"
             app:layout_collapseMode="pin">
 

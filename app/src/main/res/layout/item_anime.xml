@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:divider="@drawable/divider16dp"
+    android:divider="@drawable/spacer_16dp"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
     android:paddingEnd="5dp"
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#80FFFFFF"
-                android:divider="@drawable/divider8dp"
+                android:divider="@drawable/spacer_8dp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingStart="5dp"
@@ -61,7 +61,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@drawable/divider8dp"
+        android:divider="@drawable/spacer_8dp"
         android:orientation="vertical"
         android:showDividers="middle">
 
@@ -76,7 +76,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@drawable/divider8dp"
+            android:divider="@drawable/spacer_8dp"
             android:orientation="horizontal"
             android:showDividers="middle">
 

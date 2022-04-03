@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.hilt.android.EntryPointAccessors
+import id.shaderboi.anilist.R
+import id.shaderboi.anilist.core.data.data_source_store.local.entities.FavoriteAnimeJoinedEntity
 import id.shaderboi.anilist.core.di.FavoriteAnimeDynamicFeatureDependencies
+import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
 import id.shaderboi.anilist.favorite.databinding.FragmentFavoriteBinding
 import id.shaderboi.anilist.favorite_anime.di.DaggerFavoriteAnimeComponent
 import id.shaderboi.anilist.favorite_anime.ui.view_models.FavoriteAnimeViewModel
@@ -26,7 +31,6 @@ class FavoriteAnimeFragment : Fragment() {
         favoriteAnimeViewModelFactory
     }
 
-    //    private val favoriteViewModel by viewModels<FavoriteViewModel>()
     private var _binding: FragmentFavoriteBinding? = null
     val binding get() = _binding!!
 
@@ -49,6 +53,17 @@ class FavoriteAnimeFragment : Fragment() {
     ): View {
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
 
+        binding.recyclerViewAnimes.apply {
+            val dividerItemDecoration = DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+            dividerItemDecoration.setDrawable(
+                ContextCompat.getDrawable(requireContext(), R.drawable.divider_vertical_1dp)!!
+            )
+            addItemDecoration(dividerItemDecoration)
+        }
+
         listenEvent()
 
         return binding.root
@@ -59,36 +74,41 @@ class FavoriteAnimeFragment : Fragment() {
         super.onDestroy()
     }
 
+    private fun setScreenVisibility(res: ResourceState<List<FavoriteAnimeJoinedEntity>, Throwable>) {
+        when (res) {
+            is ResourceState.Loading -> {
+                binding.recyclerViewAnimes.visibility = View.GONE
+                binding.linearLayoutErrorAnimation.visibility = View.GONE
+                binding.linearLayoutLoadingAnimation.visibility = View.VISIBLE
+            }
+            is ResourceState.Error -> {
+                binding.textViewErrorMessage.text = res.error.message
+                binding.recyclerViewAnimes.visibility = View.GONE
+                binding.linearLayoutErrorAnimation.visibility = View.VISIBLE
+                binding.linearLayoutLoadingAnimation.visibility = View.GONE
+            }
+            is ResourceState.Loaded -> {
+                binding.recyclerViewAnimes.visibility = View.VISIBLE
+                binding.linearLayoutErrorAnimation.visibility = View.GONE
+                binding.linearLayoutLoadingAnimation.visibility = View.GONE
+            }
+        }
+    }
+
     private fun listenEvent() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
         favoriteAnimeViewModel.favoriteAnimeList.collectLatest { res ->
-            when (res) {
-                is ResourceState.Error -> {
-                    binding.textViewErrorMessage.text = res.error.message
-                    binding.recyclerViewAnimes.visibility = View.GONE
-                    binding.linearLayoutErrorAnimation.visibility = View.VISIBLE
-                    binding.linearLayoutLoadingAnimation.visibility = View.GONE
-                }
-                is ResourceState.Loading -> {
-                    binding.recyclerViewAnimes.visibility = View.GONE
-                    binding.linearLayoutErrorAnimation.visibility = View.GONE
-                    binding.linearLayoutLoadingAnimation.visibility = View.VISIBLE
-                }
-                is ResourceState.Loaded -> {
-                    val navController = binding.root.findNavController()
-                    binding.recyclerViewAnimes.adapter =
-                        AnimeAdapter(
-                            res.data.filter { it.anime != null }.map { it.anime!!.anime },
-                            navController
-                        ) { anime, position, view ->
-                            val action = FavoriteAnimeFragmentDirections
-                                .actionNavigationFavoriteMainToNavigationCommonAnime(anime.malId)
-                            navController.navigate(action)
-                        }
-
-                    binding.recyclerViewAnimes.visibility = View.VISIBLE
-                    binding.linearLayoutErrorAnimation.visibility = View.GONE
-                    binding.linearLayoutLoadingAnimation.visibility = View.GONE
-                }
+            setScreenVisibility(res)
+            if (res is ResourceState.Loaded) {
+                val navController = binding.root.findNavController()
+                binding.recyclerViewAnimes.adapter =
+                    AnimeAdapter(
+                        res.data.map { it.anime.anime },
+                        navController
+                    ) { anime, position, view ->
+                        val action = FavoriteAnimeFragmentDirections
+                            .actionNavigationFavoriteMainToNavigationCommonAnime(anime.malId)
+                        navController.navigate(action)
+                    }
             }
         }
 
