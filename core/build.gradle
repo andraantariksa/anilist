@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -43,6 +47,7 @@ dependencies {
     // Persistence
     implementation "androidx.room:room-ktx:$roomVersion"
     implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-paging:$roomVersion"
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
@@ -53,6 +58,9 @@ dependencies {
     // Misc
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.core:core-ktx:1.7.0'
+
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
+    testImplementation "androidx.paging:paging-common-ktx:$pagingVersion"
 
     // Test
     testImplementation 'junit:junit:4.13.2'

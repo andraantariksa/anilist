@@ -2,6 +2,9 @@ package id.shaderboi.anilist.ui.home.view_models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
 import id.shaderboi.anilist.core.domain.use_case.anime.AnimeUseCases
@@ -21,9 +24,7 @@ class HomeViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<HomeUIEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    private val _animeList =
-        MutableStateFlow<ResourceState<List<AnimeData>, Throwable>>(ResourceState.Loading())
-    val animeList = _animeList.asStateFlow()
+    val animeList = animeUseCases.listAnimeUseCase().cachedIn(viewModelScope)
 
     init {
         onEvent(HomeEvent.Load)
@@ -31,17 +32,7 @@ class HomeViewModel @Inject constructor(
 
     fun onEvent(event: HomeEvent) {
         when (event) {
-            HomeEvent.Load -> loadAnime()
-        }
-    }
-
-    private fun loadAnime() = viewModelScope.launch(Dispatchers.IO) {
-        _animeList.emit(ResourceState.Loading())
-        val animeList = animeUseCases.listAnimeUseCase()
-        if (animeList.isSuccess) {
-            _animeList.emit(ResourceState.Loaded(animeList.getOrNull()!!))
-        } else {
-            _animeList.emit(ResourceState.Error(animeList.exceptionOrNull()!!))
+            HomeEvent.Load -> {}
         }
     }
 }

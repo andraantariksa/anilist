@@ -1,27 +1,41 @@
 package id.shaderboi.anilist.core.data.repository
 
+import androidx.paging.*
+import id.shaderboi.anilist.core.data.data_source_store.local.database.AnilistDatabase
 import id.shaderboi.anilist.core.data.data_source_store.local.entities.FavoriteAnimeEntity
-import id.shaderboi.anilist.core.data.data_source_store.local.entities.FavoriteAnimeJoinedEntity
-import id.shaderboi.anilist.core.domain.data_source.FavoriteAnimeDataSource
-import id.shaderboi.anilist.core.domain.data_store.FavoriteAnimeDataStore
+import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
 import id.shaderboi.anilist.core.domain.repository.FavoriteAnimeRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FavoriteAnimeRepositoryImpl @Inject constructor(
-    private val dataSource: FavoriteAnimeDataSource,
-    private val dataStore: FavoriteAnimeDataStore,
+    database: AnilistDatabase
 ) : FavoriteAnimeRepository {
-    override suspend fun addFavoriteAnime(animeId: Int) =
-        dataStore.addFavoriteAnime(animeId)
+    private val favoriteAnimeDao = database.favoriteAnimeDao()
 
-    override suspend fun getFavoriteAnime(): Flow<List<FavoriteAnimeJoinedEntity>> =
-        dataSource.getFavoriteAnime()
+    override suspend fun addFavoriteAnime(animeId: Int) =
+        favoriteAnimeDao.addFavoriteAnime(FavoriteAnimeEntity(animeId))
+
+    override fun getFavoriteAnime(): Flow<PagingData<AnimeData>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                favoriteAnimeDao.getFavoriteAnime()
+            }
+        )
+            .flow
+            .map { favoriteAnimeJoinedEntityPagingData ->
+                favoriteAnimeJoinedEntityPagingData.map { favoriteAnimeJoinedEntity ->
+                    favoriteAnimeJoinedEntity.anime.anime
+                }
+            }
+    }
 
     override suspend fun getFavoriteAnimeDetail(id: Int): Flow<FavoriteAnimeEntity?> =
-        dataSource.getFavoriteAnimeDetail(id)
+        favoriteAnimeDao.getFavoriteAnimeDetail(id)
 
     override suspend fun deleteFavoriteAnime(id: Int) {
-        dataStore.deleteFavoriteAnime(id)
+        favoriteAnimeDao.deleteFavoriteAnime(id)
     }
 }

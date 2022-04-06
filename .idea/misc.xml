@@ -20,18 +20,21 @@
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/drawable/spacer_horizontal.xml" value="0.121" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/drawable/spacer_vertical.xml" value="0.121" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/activity_settings.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/anime_list_item.xml" value="0.264" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/component_error.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/component_loading.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/component_loading_animation.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/fragment_anime.xml" value="0.4" />
-        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/fragment_home.xml" value="0.4" />
+        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/fragment_anime.xml" value="0.23809523809523808" />
+        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/fragment_home.xml" value="0.21720733427362482" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/fragment_main.xml" value="0.1" />
-        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/fragment_misc.xml" value="0.10989583333333333" />
+        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/fragment_misc.xml" value="0.264" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/fragment_search.xml" value="0.264" />
+        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/fragment_settings.xml" value="0.14628623188405798" />
+        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/image_frame.xml" value="0.19157608695652173" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/item_anime.xml" value="0.264" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/item_genre.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/item_preference.xml" value="0.4" />
+        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/item_preference.xml" value="0.264" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/list_item_anime.xml" value="0.264" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/list_item_genre.xml" value="0.4" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/layout/main_activity.xml" value="0.12158054711246201" />
@@ -48,9 +51,12 @@
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/menu/search_main_toolbar_buttons.xml" value="0.264" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/menu/toolbar_buttons_anime.xml" value="0.25" />
         <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/xml/preference_misc.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/andra/Projects/Resepi/app/src/main/res/xml/preference_settings.xml" value="0.19157608695652173" />
         <entry key="..\:/Users/andra/Projects/Resepi/favorite/src/main/res/layout/fragment_favorite.xml" value="0.192481884057971" />
         <entry key="..\:/Users/andra/Projects/Resepi/favorite/src/main/res/layout/fragment_misc.xml" value="0.16757246376811594" />
         <entry key="..\:/Users/andra/Projects/Resepi/favorite_anime/src/main/res/layout/fragment_favorite.xml" value="0.19157608695652173" />
+        <entry key="..\:/Users/andra/Projects/Resepi/favorite_anime/src/main/res/layout/view_error_animation.xml" value="0.10989583333333333" />
+        <entry key="..\:/Users/andra/Projects/Resepi/favorite_anime/src/main/res/layout/view_loading_animation.xml" value="0.10989583333333333" />
       </map>
     </option>
   </component>

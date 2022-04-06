@@ -8,14 +8,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import id.shaderboi.anilist.core.data.data_source_store.local.AnimeLocalDataSource
-import id.shaderboi.anilist.core.data.data_source_store.local.AnimeLocalDataStore
-import id.shaderboi.anilist.core.data.data_source_store.local.FavoriteAnimeLocalDataSource
-import id.shaderboi.anilist.core.data.data_source_store.local.FavoriteAnimeLocalDataStore
 import id.shaderboi.anilist.core.data.data_source_store.local.database.AnilistDatabase
 import id.shaderboi.anilist.core.data.data_source_store.local.database.converter.AnimeConverter
 import id.shaderboi.anilist.core.data.data_source_store.local.database.converter.MoshiJSONParser
-import id.shaderboi.anilist.core.data.data_source_store.remote.AnimeRemoteDataSource
 import id.shaderboi.anilist.core.data.data_source_store.remote.network.JikanAPIService
 import id.shaderboi.anilist.core.data.data_source_store.remote.network.NetworkInterceptor
 import id.shaderboi.anilist.core.data.repository.AnimeRepositoryImpl
@@ -57,27 +52,18 @@ object CoreModule {
     @Singleton
     @Provides
     fun provideAnimeRepository(
-        remoteDataSource: AnimeRemoteDataSource,
-        localDataSource: AnimeLocalDataSource,
-        localDataStore: AnimeLocalDataStore
+        jikanAPIService: JikanAPIService,
+        anilistDatabase: AnilistDatabase
     ): AnimeRepository {
-        return AnimeRepositoryImpl(
-            remoteDataSource,
-            localDataSource,
-            localDataStore
-        )
+        return AnimeRepositoryImpl(jikanAPIService, anilistDatabase)
     }
 
     @Singleton
     @Provides
     fun provideFavoriteAnimeRepository(
-        localDataSource: FavoriteAnimeLocalDataSource,
-        localDataStore: FavoriteAnimeLocalDataStore
+        anilistDatabase: AnilistDatabase
     ): FavoriteAnimeRepository {
-        return FavoriteAnimeRepositoryImpl(
-            localDataSource,
-            localDataStore
-        )
+        return FavoriteAnimeRepositoryImpl(anilistDatabase)
     }
 }
 

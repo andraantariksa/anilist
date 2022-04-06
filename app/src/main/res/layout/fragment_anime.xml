@@ -56,7 +56,9 @@
                         android:divider="@drawable/spacer_8dp"
                         android:orientation="vertical"
                         android:paddingStart="20dp"
+                        android:paddingTop="20dp"
                         android:paddingEnd="20dp"
+                        android:paddingBottom="20dp"
                         android:showDividers="middle">
 
                         <TextView
@@ -78,13 +80,12 @@
                         <ImageView
                             android:id="@+id/imageViewCover"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="300dp"
                             android:layout_gravity="center_horizontal"
                             android:adjustViewBounds="true"
                             android:maxWidth="300dp"
-                            android:maxHeight="300dp"
                             android:paddingBottom="8dp"
-                            android:scaleType="centerInside"
+                            android:scaleType="fitXY"
                             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                         <LinearLayout
@@ -95,6 +96,7 @@
                             android:showDividers="middle">
 
                             <LinearLayout
+                                android:id="@+id/linearLayoutTitleEnglish"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:orientation="vertical">
@@ -114,6 +116,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/linearLayoutTitleJapanese"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:orientation="vertical">
@@ -133,6 +136,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/linearLayoutTitleAlternative"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:orientation="vertical">

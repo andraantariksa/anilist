@@ -2,7 +2,7 @@ package id.shaderboi.anilist.favorite_anime.ui.view_models
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.shaderboi.anilist.core.data.data_source_store.local.entities.FavoriteAnimeJoinedEntity
+import androidx.paging.cachedIn
 import id.shaderboi.anilist.core.domain.use_case.favorite_anime.FavoriteAnimeUseCases
 import id.shaderboi.anilist.ui.util.ResourceState
 import kotlinx.coroutines.Dispatchers
@@ -16,9 +16,7 @@ class FavoriteAnimeViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<FavoriteAnimeUIEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    private val _favoriteAnimeList =
-        MutableStateFlow<ResourceState<List<FavoriteAnimeJoinedEntity>, Throwable>>(ResourceState.Loading())
-    val favoriteAnimeList = _favoriteAnimeList.asStateFlow()
+    val favoriteAnimeList = favoriteAnimeUseCases.listFavoriteAnime().cachedIn(viewModelScope)
 
     init {
         onEvent(FavoriteAnimeEvent.Load)
@@ -26,19 +24,6 @@ class FavoriteAnimeViewModel @Inject constructor(
 
     fun onEvent(animeEvent: FavoriteAnimeEvent) {
         when (animeEvent) {
-            FavoriteAnimeEvent.Load -> loadFavorite()
         }
-    }
-
-    private fun loadFavorite() = viewModelScope.launch(Dispatchers.Main) {
-        _favoriteAnimeList.emit(ResourceState.Loading())
-        favoriteAnimeUseCases.listFavoriteAnime()
-            .onEach { favoriteAnime ->
-                _favoriteAnimeList.emit(
-                    ResourceState.Loaded(favoriteAnime)
-                )
-            }
-            .flowOn(Dispatchers.IO)
-            .launchIn(viewModelScope)
     }
 }

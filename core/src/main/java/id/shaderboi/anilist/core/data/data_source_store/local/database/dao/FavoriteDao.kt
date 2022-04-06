@@ -1,5 +1,6 @@
 package id.shaderboi.anilist.core.data.data_source_store.local.database.dao
 
+import androidx.paging.PagingSource
 import androidx.room.*
 import id.shaderboi.anilist.core.data.data_source_store.local.entities.FavoriteAnimeJoinedEntity
 import id.shaderboi.anilist.core.data.data_source_store.local.entities.FavoriteAnimeEntity
@@ -8,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FavoriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavoriteAnime(anime: FavoriteAnimeEntity)
+    fun addFavoriteAnime(anime: FavoriteAnimeEntity)
 
     @Query("SELECT * FROM anime_favorite WHERE animeId = :animeId")
     fun getFavoriteAnimeDetail(animeId: Int): Flow<FavoriteAnimeEntity?>
@@ -18,5 +19,5 @@ interface FavoriteDao {
 
     @Transaction
     @Query("SELECT * FROM anime_favorite")
-    fun getFavoriteAnime(): Flow<List<FavoriteAnimeJoinedEntity>>
+    fun getFavoriteAnime(): PagingSource<Int, FavoriteAnimeJoinedEntity>
 }

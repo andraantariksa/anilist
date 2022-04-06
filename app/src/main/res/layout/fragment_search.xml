@@ -51,8 +51,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingStart="50dp"
-                android:paddingEnd="50dp"
                 android:visibility="gone">
 
                 <com.airbnb.lottie.LottieAnimationView
@@ -93,13 +91,11 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingStart="50dp"
-            android:paddingEnd="50dp"
             android:visibility="gone">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="316dp"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/search_magnifier" />
@@ -110,15 +106,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical"
-            android:paddingStart="50dp"
-            android:paddingEnd="50dp">
+            android:orientation="vertical">
 
-            <!--            <ImageView-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                app:srcCompat="@drawable/ic_clumsy"-->
-            <!--                android:contentDescription="Empty search" />-->
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
@@ -126,37 +115,9 @@
                 app:srcCompat="@drawable/clumsy" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayoutErrorAnimation"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingStart="50dp"
-            android:paddingEnd="50dp"
-            android:visibility="gone">
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="wrap_content"
-                android:layout_height="316dp"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/error" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Whoops!"
-                android:textAlignment="center"
-                android:textSize="34sp" />
-
-            <TextView
-                android:id="@+id/textViewErrorMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                tools:text="ERROR" />
-        </LinearLayout>
+        <include
+            android:id="@+id/includeViewErrorAnimation"
+            layout="@layout/view_error_animation" />
     </FrameLayout>
 
 </LinearLayout>

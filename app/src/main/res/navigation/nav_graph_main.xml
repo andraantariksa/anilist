@@ -13,6 +13,7 @@
         <fragment
             android:id="@+id/navigation_home_main"
             android:name="id.shaderboi.anilist.ui.home.HomeFragment"
+            android:label="Discover"
             tools:layout="@layout/fragment_home">
             <action
                 android:id="@+id/action_navigation_home_main_to_navigation_common_anime"
@@ -35,6 +36,7 @@
         <fragment
             android:id="@+id/navigation_favorite_main"
             android:name="id.shaderboi.anilist.favorite_anime.ui.FavoriteAnimeFragment"
+            android:label="Favorite"
             tools:layout="@layout/fragment_favorite">
             <action
                 android:id="@+id/action_navigation_favorite_main_to_navigation_common_anime"
@@ -80,7 +82,15 @@
             android:id="@+id/navigation_misc_main"
             android:name="id.shaderboi.anilist.ui.misc.MiscFragment"
             android:label="Misc"
-            tools:layout="@layout/fragment_misc" />
+            tools:layout="@layout/fragment_misc">
+            <action
+                android:id="@+id/action_navigation_misc_main_to_navigation_misc_settings"
+                app:destination="@id/navigation_misc_settings" />
+        </fragment>
+        <fragment
+            android:id="@+id/navigation_misc_settings"
+            android:name="id.shaderboi.anilist.ui.settings.SettingsFragment"
+            android:label="Settings" />
     </navigation>
 
 </navigation>

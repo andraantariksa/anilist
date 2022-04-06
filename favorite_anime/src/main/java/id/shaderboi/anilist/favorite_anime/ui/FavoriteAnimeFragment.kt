@@ -4,24 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.hilt.android.EntryPointAccessors
 import id.shaderboi.anilist.R
-import id.shaderboi.anilist.core.data.data_source_store.local.entities.FavoriteAnimeJoinedEntity
 import id.shaderboi.anilist.core.di.FavoriteAnimeDynamicFeatureDependencies
-import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
-import id.shaderboi.anilist.favorite.databinding.FragmentFavoriteBinding
+import id.shaderboi.anilist.favorite.databinding.FragmentFavoriteAnimeBinding
 import id.shaderboi.anilist.favorite_anime.di.DaggerFavoriteAnimeComponent
 import id.shaderboi.anilist.favorite_anime.ui.view_models.FavoriteAnimeViewModel
 import id.shaderboi.anilist.favorite_anime.ui.view_models.FavoriteAnimeViewModelFactory
-import id.shaderboi.anilist.ui.common.adapters.AnimeAdapter
-import id.shaderboi.anilist.ui.util.ResourceState
+import id.shaderboi.anilist.ui.common.adapters.AnimePagingAdapter
+import id.shaderboi.anilist.ui.common.adapters.animeDataDiffUtil
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FavoriteAnimeFragment : Fragment() {
@@ -31,8 +33,10 @@ class FavoriteAnimeFragment : Fragment() {
         favoriteAnimeViewModelFactory
     }
 
-    private var _binding: FragmentFavoriteBinding? = null
+    private var _binding: FragmentFavoriteAnimeBinding? = null
     val binding get() = _binding!!
+
+    private lateinit var pagingAdapter: AnimePagingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         DaggerFavoriteAnimeComponent
@@ -51,19 +55,12 @@ class FavoriteAnimeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoriteAnimeBinding.inflate(inflater, container, false)
 
-        binding.recyclerViewAnimes.apply {
-            val dividerItemDecoration = DividerItemDecoration(
-                requireContext(),
-                DividerItemDecoration.VERTICAL
-            )
-            dividerItemDecoration.setDrawable(
-                ContextCompat.getDrawable(requireContext(), R.drawable.divider_vertical_1dp)!!
-            )
-            addItemDecoration(dividerItemDecoration)
-        }
+        val activity = requireActivity() as AppCompatActivity
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
+        setupView()
         listenEvent()
 
         return binding.root
@@ -74,41 +71,46 @@ class FavoriteAnimeFragment : Fragment() {
         super.onDestroy()
     }
 
-    private fun setScreenVisibility(res: ResourceState<List<FavoriteAnimeJoinedEntity>, Throwable>) {
-        when (res) {
-            is ResourceState.Loading -> {
-                binding.recyclerViewAnimes.visibility = View.GONE
-                binding.linearLayoutErrorAnimation.visibility = View.GONE
-                binding.linearLayoutLoadingAnimation.visibility = View.VISIBLE
-            }
-            is ResourceState.Error -> {
-                binding.textViewErrorMessage.text = res.error.message
-                binding.recyclerViewAnimes.visibility = View.GONE
-                binding.linearLayoutErrorAnimation.visibility = View.VISIBLE
-                binding.linearLayoutLoadingAnimation.visibility = View.GONE
-            }
-            is ResourceState.Loaded -> {
-                binding.recyclerViewAnimes.visibility = View.VISIBLE
-                binding.linearLayoutErrorAnimation.visibility = View.GONE
-                binding.linearLayoutLoadingAnimation.visibility = View.GONE
-            }
+    private fun setupView() {
+        val navController = findNavController()
+        pagingAdapter = AnimePagingAdapter(
+            { anime, position, view ->
+                val action = FavoriteAnimeFragmentDirections
+                    .actionNavigationFavoriteMainToNavigationCommonAnime(anime.malId)
+                navController.navigate(action)
+            },
+            animeDataDiffUtil
+        )
+        binding.recyclerViewAnimes.apply {
+            adapter = pagingAdapter
+
+            val dividerItemDecoration = DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+            dividerItemDecoration.setDrawable(
+                ContextCompat.getDrawable(requireContext(), R.drawable.divider_vertical_1dp)!!
+            )
+            addItemDecoration(dividerItemDecoration)
         }
     }
 
     private fun listenEvent() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-        favoriteAnimeViewModel.favoriteAnimeList.collectLatest { res ->
-            setScreenVisibility(res)
-            if (res is ResourceState.Loaded) {
-                val navController = binding.root.findNavController()
-                binding.recyclerViewAnimes.adapter =
-                    AnimeAdapter(
-                        res.data.map { it.anime.anime },
-                        navController
-                    ) { anime, position, view ->
-                        val action = FavoriteAnimeFragmentDirections
-                            .actionNavigationFavoriteMainToNavigationCommonAnime(anime.malId)
-                        navController.navigate(action)
-                    }
+        launch {
+            pagingAdapter.loadStateFlow.collectLatest { loadStates ->
+                val refreshState = loadStates.refresh
+                binding.recyclerViewAnimes.isVisible = refreshState !is LoadState.Loading
+                binding.linearLayoutLoadingAnimation.isVisible = refreshState is LoadState.Loading
+                binding.linearLayoutErrorAnimation.isVisible = refreshState is LoadState.Error
+                if (refreshState is LoadState.Error) {
+                    binding.textViewErrorMessage.text = refreshState.error.message
+                }
+            }
+        }
+
+        launch {
+            favoriteAnimeViewModel.favoriteAnimeList.collectLatest { pagingData ->
+                pagingAdapter.submitData(pagingData)
             }
         }
 

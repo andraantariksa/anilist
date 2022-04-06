@@ -14,7 +14,6 @@ android {
 
     buildFeatures {
         viewBinding true
-//        dataBinding true
     }
 
     buildTypes {
@@ -39,6 +38,7 @@ dependencies {
     // Persistence
     implementation "androidx.room:room-ktx:$roomVersion"
     implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-paging:$roomVersion"
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
@@ -54,6 +54,9 @@ dependencies {
     // Misc
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
+    testImplementation "androidx.paging:paging-common-ktx:$pagingVersion"
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

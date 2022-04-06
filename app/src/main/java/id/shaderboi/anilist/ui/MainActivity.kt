@@ -1,20 +1,12 @@
 package id.shaderboi.anilist.ui
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
-import androidx.navigation.Navigation
+import androidx.navigation.NavGraph
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
-import id.shaderboi.anilist.R
 import id.shaderboi.anilist.databinding.ActivityMainBinding
 
 @AndroidEntryPoint
@@ -29,18 +21,14 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        val navController =
-            binding.fragmentContainerViewMain.getFragment<NavHostFragment>().navController
+        val navHostFragment =
+            binding.fragmentContainerViewMain.getFragment<NavHostFragment>()
+        val navController = navHostFragment.navController
         binding.bottomNavigationViewMain.setupWithNavController(navController)
-//        setupActionBarWithNavController(
-//            navController,
-//            AppBarConfiguration(
-//                setOf(
-//                    R.id.navigation_home,
-//                    R.id.navigation_misc
-//                )
-//            )
-//        )
+        binding.bottomNavigationViewMain.setOnItemReselectedListener { item ->
+            val selectedMenuItemNavGraph = navController.graph.findNode(item.itemId) as NavGraph
+            navController.popBackStack(selectedMenuItemNavGraph.startDestinationId, false)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

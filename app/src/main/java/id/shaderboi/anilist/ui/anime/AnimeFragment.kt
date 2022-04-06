@@ -1,14 +1,13 @@
 package id.shaderboi.anilist.ui.anime
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +24,7 @@ import id.shaderboi.anilist.databinding.ItemGenreBinding
 import id.shaderboi.anilist.ui.anime.view_models.AnimeEvent
 import id.shaderboi.anilist.ui.anime.view_models.AnimeViewModel
 import id.shaderboi.anilist.ui.util.ResourceState
+import id.shaderboi.anilist.ui.util.shown
 import kotlinx.coroutines.flow.collectLatest
 import java.lang.IllegalStateException
 
@@ -51,13 +51,13 @@ class AnimeFragment : Fragment() {
 
         try {
             val navController = findNavController()
-            if (navController.backQueue.size > 0) {
-                binding.toolbar.navigationIcon =
+            binding.toolbar.apply {
+                navigationIcon =
                     AppCompatResources.getDrawable(
                         requireContext(),
                         R.drawable.ic_baseline_arrow_back_24
                     )
-                binding.toolbar.setNavigationOnClickListener {
+                setNavigationOnClickListener {
                     navController.popBackStack()
                 }
             }
@@ -74,7 +74,7 @@ class AnimeFragment : Fragment() {
         super.onDestroy()
     }
 
-    private fun setScreenVisibility(res: ResourceState<AnimeData, Throwable>) {
+    private fun setContentVisibility(res: ResourceState<AnimeData, Throwable>) {
         binding.apply {
             when (res) {
                 is ResourceState.Error -> {
@@ -109,9 +109,31 @@ class AnimeFragment : Fragment() {
         startActivity(shareIntent)
     }
 
+    private fun bindTitle(animeData: AnimeData) {
+        binding.apply {
+            textViewTitle.text = animeData.title
+
+            val isTitleEnglishExists = animeData.titleEnglish != null
+            linearLayoutTitleEnglish.shown(isTitleEnglishExists)
+            if (isTitleEnglishExists) {
+                binding.textViewTitleEnglish.text = animeData.titleEnglish
+            }
+            val isTitleJapaneseExists = animeData.titleJapanese != null
+            linearLayoutTitleJapanese.shown(isTitleJapaneseExists)
+            if (isTitleJapaneseExists) {
+                binding.textViewTitleJapanese.text = animeData.titleJapanese
+            }
+            val isTitleAlternativeExists = animeData.titleSynonyms.isNotEmpty()
+            linearLayoutTitleAlternative.shown(isTitleAlternativeExists)
+            if (isTitleAlternativeExists) {
+                textViewTitleAlternative.text = animeData.titleSynonyms.joinToString(", ")
+            }
+        }
+    }
+
     private fun listenEvent() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
         animeViewModel.anime.collectLatest { res ->
-            setScreenVisibility(res)
+            setContentVisibility(res)
             if (res is ResourceState.Loaded) {
                 binding.toolbar.setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
@@ -124,17 +146,7 @@ class AnimeFragment : Fragment() {
                     }
                 }
 
-                binding.textViewTitle.text = res.data.title
-                res.data.titleEnglish?.let { title ->
-                    binding.textViewTitleEnglish.text = title
-                }
-                res.data.titleJapanese?.let { title ->
-                    binding.textViewTitleJapanese.text = title
-                }
-                if (res.data.titleSynonyms.isNotEmpty()) {
-                    binding.textViewTitleAlternative.text =
-                        res.data.titleSynonyms.joinToString(",")
-                }
+                bindTitle(res.data)
 
                 binding.imageViewCover.load(res.data.images.jpg.largeImageUrl) {
                     crossfade(true)
@@ -142,7 +154,7 @@ class AnimeFragment : Fragment() {
                 }
 
                 binding.textViewLicensor.text = res.data.licensors
-                    .joinToString(", ")
+                    .joinToString(", ") { licensor -> licensor.name }
                     .ifBlank { "Not available" }
                 binding.textViewAired.text = res.data.aired.string ?: "Not available"
                 binding.textViewDuration.text = res.data.duration

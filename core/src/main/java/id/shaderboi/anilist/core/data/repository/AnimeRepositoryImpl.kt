@@ -1,50 +1,66 @@
 package id.shaderboi.anilist.core.data.repository
 
-import id.shaderboi.anilist.core.data.data_source_store.local.AnimeLocalDataSource
-import id.shaderboi.anilist.core.data.data_source_store.local.AnimeLocalDataStore
-import id.shaderboi.anilist.core.data.data_source_store.remote.AnimeRemoteDataSource
-import id.shaderboi.anilist.core.data.exception.NoDataAvailableException
+import androidx.paging.*
+import id.shaderboi.anilist.core.data.data_source_store.local.database.AnilistDatabase
+import id.shaderboi.anilist.core.data.data_source_store.local.entities.AnimeEntity
+import id.shaderboi.anilist.core.data.data_source_store.remote.network.JikanAPIService
+import id.shaderboi.anilist.core.data.paging.AnimeRemoteMediator
+import id.shaderboi.anilist.core.data.paging.SearchAnimePagingSource
 import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
 import id.shaderboi.anilist.core.domain.repository.AnimeRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class AnimeRepositoryImpl(
-    private val remoteDataSource: AnimeRemoteDataSource,
-    private val localDataSource: AnimeLocalDataSource,
-    private val localDataStore: AnimeLocalDataStore,
+class AnimeRepositoryImpl @Inject constructor(
+    private val jikanAPIService: JikanAPIService,
+    private val anilistDatabase: AnilistDatabase
 ) : AnimeRepository {
+    private val animeDao = anilistDatabase.animeDao()
+    private val animeRemoteKeyDao = anilistDatabase.animeRemoteKeyDao()
+
     override suspend fun getAnimeDetail(id: Int): Result<AnimeData> {
         val result = runCatching {
-            val anime = remoteDataSource.getAnimeDetail(id)
-            localDataStore.insertAnime(anime)
+            val anime = jikanAPIService.getAnime(id).animeData
+            animeDao.addAnime(AnimeEntity(anime, anime.malId))
             anime
         }
 
-        try {
-            return Result.success(localDataSource.getAnimeDetail(id))
-        } catch (ex: NoDataAvailableException) {
-            // Ignore
-        }
-        return result
-    }
-
-    override suspend fun getAnimeList(): Result<List<AnimeData>> {
-        val result = runCatching {
-            val animes = remoteDataSource.getAnimeList()
-            localDataStore.insertAnimes(animes)
-            animes
+        if (result.isSuccess) {
+            return Result.success(result.getOrNull()!!)
         }
 
-        try {
-            return Result.success(localDataSource.getAnimeList())
-        } catch (ex: NoDataAvailableException) {
-            // Ignore
-        }
-        return result
-    }
-
-    override suspend fun searchAnime(query: String): Result<List<AnimeData>> {
         return runCatching {
-            remoteDataSource.searchAnime(query)
+            animeDao.getAnime(id)!!.anime
         }
+    }
+
+    @OptIn(ExperimentalPagingApi::class)
+    override fun getAnimeList(): Flow<PagingData<AnimeData>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            remoteMediator = AnimeRemoteMediator(
+                jikanAPIService,
+                anilistDatabase
+            ),
+            pagingSourceFactory = {
+                animeDao.getAnimeList()
+            }
+        )
+            .flow
+            .map { pagingData ->
+                pagingData.map { animeEntity ->
+                    animeEntity.anime
+                }
+            }
+    }
+
+    override fun searchAnime(query: String): Flow<PagingData<AnimeData>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                SearchAnimePagingSource(jikanAPIService, query)
+            }
+        ).flow
     }
 }

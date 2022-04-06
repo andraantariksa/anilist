@@ -11,15 +11,19 @@ import retrofit2.http.Query
 
 interface JikanAPIService {
     @GET("anime/{id}")
-    suspend fun getAnimeDetail(@Path("id") id: Int): Response<AnimeSingle>
+    suspend fun getAnime(@Path("id") id: Int): AnimeSingle
 
     @GET("anime")
-    suspend fun getAnimeList(@Query("order_by") order_by: String = "start_date"): Response<AnimeSearch>
+    suspend fun getAnimeList(
+        @Query("page") page: Int,
+        @Query("order_by") order_by: String = "mal_id"
+    ): AnimeSearch
 
     @GET("anime")
     suspend fun searchAnime(
         @Query("q") query: String,
+        @Query("page") page: Int,
         @Query("order_by") order_by: String? = null
-    ): Response<AnimeSearch>
+    ): AnimeSearch
 
 }
