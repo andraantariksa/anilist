@@ -16,4 +16,7 @@ jobs:
         uses: android-actions/setup-android@v2
 
       - name: Build SampleApplication
+        run: chmod +x gradlew
+
+      - name: Build SampleApplication
         run: ./gradlew --no-daemon build
