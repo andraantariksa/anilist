@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -24,7 +25,6 @@ import id.shaderboi.anilist.databinding.ItemGenreBinding
 import id.shaderboi.anilist.ui.anime.view_models.AnimeEvent
 import id.shaderboi.anilist.ui.anime.view_models.AnimeViewModel
 import id.shaderboi.anilist.ui.util.ResourceState
-import id.shaderboi.anilist.ui.util.shown
 import kotlinx.coroutines.flow.collectLatest
 import java.lang.IllegalStateException
 
@@ -114,17 +114,17 @@ class AnimeFragment : Fragment() {
             textViewTitle.text = animeData.title
 
             val isTitleEnglishExists = animeData.titleEnglish != null
-            linearLayoutTitleEnglish.shown(isTitleEnglishExists)
+            linearLayoutTitleEnglish.isVisible = isTitleEnglishExists
             if (isTitleEnglishExists) {
                 binding.textViewTitleEnglish.text = animeData.titleEnglish
             }
             val isTitleJapaneseExists = animeData.titleJapanese != null
-            linearLayoutTitleJapanese.shown(isTitleJapaneseExists)
+            linearLayoutTitleJapanese.isVisible = isTitleJapaneseExists
             if (isTitleJapaneseExists) {
                 binding.textViewTitleJapanese.text = animeData.titleJapanese
             }
             val isTitleAlternativeExists = animeData.titleSynonyms.isNotEmpty()
-            linearLayoutTitleAlternative.shown(isTitleAlternativeExists)
+            linearLayoutTitleAlternative.isVisible = isTitleAlternativeExists
             if (isTitleAlternativeExists) {
                 textViewTitleAlternative.text = animeData.titleSynonyms.joinToString(", ")
             }
