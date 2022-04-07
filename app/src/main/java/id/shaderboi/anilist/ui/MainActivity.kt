@@ -2,20 +2,40 @@ package id.shaderboi.anilist.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavGraph
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import dagger.hilt.android.AndroidEntryPoint
+import id.shaderboi.anilist.core.util.Theme
+import id.shaderboi.anilist.core.util.preference.AppPreferenceStore
 import id.shaderboi.anilist.databinding.ActivityMainBinding
+import kotlinx.coroutines.flow.collectLatest
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var appPreferenceStore: AppPreferenceStore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        lifecycleScope.launchWhenStarted {
+            appPreferenceStore.preference().collectLatest { appSettings ->
+                val themeAppCompat = when(appSettings.theme) {
+                    Theme.Default -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                    Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
+                    Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
+                }
+                AppCompatDelegate.setDefaultNightMode(themeAppCompat)
+            }
+        }
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
 

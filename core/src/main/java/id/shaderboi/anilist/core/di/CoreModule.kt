@@ -17,6 +17,8 @@ import id.shaderboi.anilist.core.data.repository.AnimeRepositoryImpl
 import id.shaderboi.anilist.core.data.repository.FavoriteAnimeRepositoryImpl
 import id.shaderboi.anilist.core.domain.repository.AnimeRepository
 import id.shaderboi.anilist.core.domain.repository.FavoriteAnimeRepository
+import id.shaderboi.anilist.core.util.preference.AppPreferenceStore
+import id.shaderboi.anilist.core.util.preference.AppPreferenceStoreImpl
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -38,6 +40,12 @@ object CoreModule {
             .baseUrl("https://api.jikan.moe/v4/")
             .build()
         return retrofit.create(JikanAPIService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePreferenceStore(@ApplicationContext context: Context): AppPreferenceStore {
+        return AppPreferenceStoreImpl(context)
     }
 
     @Singleton

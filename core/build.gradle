@@ -59,8 +59,14 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.core:core-ktx:1.7.0'
 
+    // Paging
     implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
     testImplementation "androidx.paging:paging-common-ktx:$pagingVersion"
+
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // Logger
+    implementation "com.jakewharton.timber:timber:$timberVersion"
 
     // Test
     testImplementation 'junit:junit:4.13.2'
