@@ -2,7 +2,9 @@
 
 An anime explorer based on MyAnimeList anime listing via https://jikan.moe/ .
 
-This project is developed as submission for [Dicoding](https://www.dicoding.com/)'s [Menjadi Android Developer Expert](https://www.dicoding.com/academies/165) course.
+This project is developed as submission
+for [Dicoding](https://www.dicoding.com/)'s [Menjadi Android Developer Expert](https://www.dicoding.com/academies/165) course
+and [#JuaraAndroid](https://rsvp.withgoogle.com/events/juara-android-22) event.
 
 ## Features
 
@@ -40,6 +42,13 @@ You cannot use Hilt in a DF (dynamic feature). The workaround for DF is by injec
 dependencies using Dagger manually.
 
 Reference used: https://github.com/kido1611/Hilt-On-Dynamic-Feature-Module
+
+## How to run this code
+
+1. Clone this repository to your machine
+2. Open your Android Studio
+3. Import this repository to your Android Studio
+4. Build and run the application to your emulator or Android devices
 
 ## License
 
