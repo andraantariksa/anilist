@@ -4,7 +4,10 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="android:textColorHint">#737373</item>
+        <item name="android:textColor">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
+        <item name="backgroundColor">@color/black</item>
         <item name="preferenceTheme">@style/PrefsTheme</item>
     </style>
 
@@ -17,14 +20,6 @@
     <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="colorPrimary">@color/white</item>
     </style>
-
-<!--    &lt;!&ndash; FAB COLOR &ndash;&gt;-->
-<!--    <style name="FloatingActionButton.Active" parent="Theme.Anilist">-->
-<!--        <item name="colorAccent">@color/primaryColor</item>-->
-<!--    </style>-->
-<!--    <style name="FloatingActionButton.Inactive" parent="Theme.Anilist">-->
-<!--        <item name="colorAccent">@color/white</item>-->
-<!--    </style>-->
 
     <!-- DIVIDER -->
     <style name="Divider">

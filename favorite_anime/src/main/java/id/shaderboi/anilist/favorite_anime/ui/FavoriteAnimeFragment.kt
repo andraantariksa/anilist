@@ -89,7 +89,7 @@ class FavoriteAnimeFragment : Fragment() {
                 DividerItemDecoration.VERTICAL
             )
             dividerItemDecoration.setDrawable(
-                ContextCompat.getDrawable(requireContext(), R.drawable.divider_vertical_1dp)!!
+                ContextCompat.getDrawable(requireContext(), R.drawable.divider_horizontal_1dp)!!
             )
             addItemDecoration(dividerItemDecoration)
         }

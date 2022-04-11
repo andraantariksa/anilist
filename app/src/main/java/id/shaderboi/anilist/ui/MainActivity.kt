@@ -20,22 +20,8 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var appPreferenceStore: AppPreferenceStore
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        lifecycleScope.launchWhenStarted {
-            appPreferenceStore.preference().collectLatest { appSettings ->
-                val themeAppCompat = when(appSettings.theme) {
-                    Theme.Default -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                    Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
-                    Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
-                }
-                AppCompatDelegate.setDefaultNightMode(themeAppCompat)
-            }
-        }
 
         _binding = ActivityMainBinding.inflate(layoutInflater)
 

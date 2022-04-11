@@ -12,12 +12,6 @@
         android:layout_height="wrap_content"
         app:liftOnScroll="true">
 
-        <!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:expandedTitleGravity="bottom"-->
-        <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -26,7 +20,6 @@
             android:minHeight="?attr/actionBarSize"
             app:layout_collapseMode="pin"
             app:title="Discover" />
-        <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout

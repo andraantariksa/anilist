@@ -8,20 +8,16 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import id.shaderboi.anilist.R
-import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
 import id.shaderboi.anilist.databinding.FragmentSearchBinding
-import id.shaderboi.anilist.favorite_anime.ui.FavoriteAnimeFragmentDirections
 import id.shaderboi.anilist.ui.common.adapters.AnimePagingAdapter
 import id.shaderboi.anilist.ui.common.adapters.animeDataDiffUtil
 import id.shaderboi.anilist.ui.search.view_models.SearchEvent
 import id.shaderboi.anilist.ui.search.view_models.SearchViewModel
-import id.shaderboi.anilist.ui.util.ResourceState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -75,7 +71,7 @@ class SearchFragment : Fragment() {
                 DividerItemDecoration.VERTICAL
             )
             dividerItemDecoration.setDrawable(
-                ContextCompat.getDrawable(requireContext(), R.drawable.divider_vertical_1dp)!!
+                ContextCompat.getDrawable(requireContext(), R.drawable.divider_horizontal_1dp)!!
             )
             addItemDecoration(dividerItemDecoration)
         }

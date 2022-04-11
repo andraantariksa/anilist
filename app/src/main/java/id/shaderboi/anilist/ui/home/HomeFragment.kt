@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -66,7 +65,7 @@ class HomeFragment : Fragment() {
                 DividerItemDecoration.VERTICAL
             )
             dividerItemDecoration.setDrawable(
-                ContextCompat.getDrawable(requireContext(), R.drawable.divider_vertical_1dp)!!
+                ContextCompat.getDrawable(requireContext(), R.drawable.divider_horizontal_1dp)!!
             )
             addItemDecoration(dividerItemDecoration)
         }

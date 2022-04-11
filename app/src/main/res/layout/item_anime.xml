@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:clickable="true"
-    android:divider="@drawable/spacer_16dp"
     android:focusable="true"
-    android:foreground="?attr/selectableItemBackground"
-    android:paddingEnd="5dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:divider="@drawable/spacer_16dp"
+    android:backgroundTint="@color/background"
     android:showDividers="middle">
 
     <FrameLayout
@@ -71,7 +72,7 @@
             android:id="@+id/textViewTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
             android:textSize="16sp"
             android:textStyle="normal|bold" />
 
@@ -114,7 +115,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxHeight="50dp"
-            android:text="Nulla convallis aliquet neque at vehicula. Cras tristique elit sit amet magna rhoncus suscipit. Nullam ultricies lacus orci, et euismod elit finibus sed. Maecenas eget placerat nunc. Aenean eget tellus sit amet ligula feugiat dapibus sed in ligula. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque elit turpis, porttitor euismod purus nec, ornare tempor diam. Etiam convallis dui varius metus ornare lobortis ac at ante. Nulla et lacus semper, ultricies metus vel, venenatis odio. Pellentesque dictum elit in arcu posuere euismod. Vivamus non lectus vitae ligula sodales venenatis a vel massa. Donec sed metus id urna lacinia egestas. Nullam mollis, nulla in fringilla porttitor, est sapien fringilla velit, quis varius urna justo a nunc. Aliquam pulvinar lorem nec mattis sagittis. Aliquam faucibus diam sem, eget egestas ipsum pulvinar at." />
+            tools:text="Nulla convallis aliquet neque at vehicula. Cras tristique elit sit amet magna rhoncus suscipit. Nullam ultricies lacus orci, et euismod elit finibus sed. Maecenas eget placerat nunc. Aenean eget tellus sit amet ligula feugiat dapibus sed in ligula. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque elit turpis, porttitor euismod purus nec, ornare tempor diam. Etiam convallis dui varius metus ornare lobortis ac at ante. Nulla et lacus semper, ultricies metus vel, venenatis odio. Pellentesque dictum elit in arcu posuere euismod. Vivamus non lectus vitae ligula sodales venenatis a vel massa. Donec sed metus id urna lacinia egestas. Nullam mollis, nulla in fringilla porttitor, est sapien fringilla velit, quis varius urna justo a nunc. Aliquam pulvinar lorem nec mattis sagittis. Aliquam faucibus diam sem, eget egestas ipsum pulvinar at." />
 
     </LinearLayout>
 </LinearLayout>
