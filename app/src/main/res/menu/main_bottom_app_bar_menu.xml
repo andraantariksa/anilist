@@ -4,17 +4,17 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_baseline_explore_24"
-        android:title="Discover" />
+        android:title="@string/discover" />
     <item
         android:id="@+id/navigation_favorite"
         android:icon="@drawable/ic_baseline_favorite_24"
-        android:title="Favorite" />
+        android:title="@string/favorite" />
     <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_baseline_search_24"
-        android:title="Search" />
+        android:title="@string/search" />
     <item
         android:id="@+id/navigation_misc"
         android:icon="@drawable/ic_baseline_more_horiz_24"
-        android:title="Misc" />
+        android:title="@string/misc" />
 </menu>

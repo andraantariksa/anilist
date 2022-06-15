@@ -10,8 +10,6 @@ import id.shaderboi.anilist.core.data.data_source_store.local.entities.AnimeEnti
 import id.shaderboi.anilist.core.data.data_source_store.local.entities.AnimeRemoteKeyEntity
 import id.shaderboi.anilist.core.data.data_source_store.remote.network.JIKAN_STARTING_PAGE
 import id.shaderboi.anilist.core.data.data_source_store.remote.network.JikanAPIService
-import java.lang.Exception
-import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
 class AnimeRemoteMediator(

@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "id.shaderboi.anilist"
-        minSdk 21
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -70,8 +70,8 @@ dependencies {
 
     /// Animation and image
     implementation "com.airbnb.android:lottie:$lottieVersion"
-    implementation "io.coil-kt:coil:2.0.0-rc01"
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation "io.coil-kt:coil:2.1.0"
+    implementation 'com.google.android.material:material:1.6.1'
 
     // Persistence
     implementation "androidx.datastore:datastore:1.0.0"
@@ -87,7 +87,7 @@ dependencies {
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$chuckerVersion"
 
     // Leak detector
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.9.1"
 
     // Logger
     implementation "com.jakewharton.timber:timber:$timberVersion"

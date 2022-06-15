@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,12 +14,13 @@
         android:drawableStart="@drawable/ic_baseline_search_24"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="Search"
+        android:hint="@string/search"
         android:inputType="text"
         android:paddingStart="10dp"
         android:paddingTop="8dp"
         android:paddingEnd="10dp"
         android:paddingBottom="5dp"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:autofillHints="true" />
 
 </LinearLayout>

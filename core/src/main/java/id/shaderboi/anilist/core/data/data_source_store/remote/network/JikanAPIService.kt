@@ -1,8 +1,7 @@
 package id.shaderboi.anilist.core.data.data_source_store.remote.network
 
-import id.shaderboi.anilist.core.domain.model.anime.AnimeSingle
-import id.shaderboi.anilist.core.domain.model.anime_search.AnimeSearch
-import retrofit2.Response
+import id.shaderboi.anilist.core.data.model.anime.AnimeSingle
+import id.shaderboi.anilist.core.data.model.anime_search.AnimeSearch
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

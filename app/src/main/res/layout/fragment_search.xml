@@ -63,14 +63,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No result found!"
+                    android:text="@string/no_result_found"
                     android:textAlignment="center"
                     android:textSize="34sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Maybe you have mistyped the title or...?"
+                    android:text="@string/maybe_mistyped"
                     android:textAlignment="center" />
             </LinearLayout>
 
@@ -109,6 +109,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:contentDescription="@string/idle_search"
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

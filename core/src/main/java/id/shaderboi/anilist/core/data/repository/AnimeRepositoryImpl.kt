@@ -6,7 +6,7 @@ import id.shaderboi.anilist.core.data.data_source_store.local.entities.AnimeEnti
 import id.shaderboi.anilist.core.data.data_source_store.remote.network.JikanAPIService
 import id.shaderboi.anilist.core.data.paging.AnimeRemoteMediator
 import id.shaderboi.anilist.core.data.paging.SearchAnimePagingSource
-import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
+import id.shaderboi.anilist.core.domain.model.anime.Anime
 import id.shaderboi.anilist.core.domain.repository.AnimeRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,7 +19,7 @@ class AnimeRepositoryImpl @Inject constructor(
     private val animeDao = anilistDatabase.animeDao()
     private val animeRemoteKeyDao = anilistDatabase.animeRemoteKeyDao()
 
-    override suspend fun getAnimeDetail(id: Int): Result<AnimeData> {
+    override suspend fun getAnimeDetail(id: Int): Result<Anime> {
         val result = runCatching {
             val anime = jikanAPIService.getAnime(id).animeData
             animeDao.addAnime(AnimeEntity(anime, anime.malId))
@@ -27,16 +27,16 @@ class AnimeRepositoryImpl @Inject constructor(
         }
 
         if (result.isSuccess) {
-            return Result.success(result.getOrNull()!!)
+            return Result.success(result.getOrNull()!!.toAnime())
         }
 
         return runCatching {
-            animeDao.getAnime(id)!!.anime
+            animeDao.getAnime(id)!!.anime.toAnime()
         }
     }
 
     @OptIn(ExperimentalPagingApi::class)
-    override fun getAnimeList(): Flow<PagingData<AnimeData>> {
+    override fun getAnimeList(): Flow<PagingData<Anime>> {
         return Pager(
             config = PagingConfig(pageSize = 10),
             remoteMediator = AnimeRemoteMediator(
@@ -50,12 +50,12 @@ class AnimeRepositoryImpl @Inject constructor(
             .flow
             .map { pagingData ->
                 pagingData.map { animeEntity ->
-                    animeEntity.anime
+                    animeEntity.anime.toAnime()
                 }
             }
     }
 
-    override fun searchAnime(query: String): Flow<PagingData<AnimeData>> {
+    override fun searchAnime(query: String): Flow<PagingData<Anime>> {
         return Pager(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {

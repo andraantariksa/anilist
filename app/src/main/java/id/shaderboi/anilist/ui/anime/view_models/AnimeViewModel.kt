@@ -3,7 +3,7 @@ package id.shaderboi.anilist.ui.anime.view_models
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
+import id.shaderboi.anilist.core.domain.model.anime.Anime
 import id.shaderboi.anilist.core.domain.use_case.anime.AnimeUseCases
 import id.shaderboi.anilist.core.domain.use_case.favorite_anime.FavoriteAnimeUseCases
 import id.shaderboi.anilist.ui.util.ResourceState
@@ -24,7 +24,7 @@ class AnimeViewModel @Inject constructor(
     private var animeJob: Job? = null
 
     private val _anime =
-        MutableStateFlow<ResourceState<AnimeData, Throwable>>(ResourceState.Loading())
+        MutableStateFlow<ResourceState<Anime, Throwable>>(ResourceState.Loading())
     val anime = _anime.asStateFlow()
 
     private val _isFavoriteAnime = MutableStateFlow(false)

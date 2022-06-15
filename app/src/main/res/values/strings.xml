@@ -22,4 +22,22 @@
     <string name="aired">Aired</string>
     <string name="share">Share</string>
     <string name="set_as_favorite_anime">Set as favorite anime</string>
+    <string name="search">Search</string>
+    <string name="anime_main_image">Anime main image</string>
+    <string name="idle_search">Idle search</string>
+    <string name="icon">Icon</string>
+    <string name="anime_featured_image">Anime featured image</string>
+    <string name="duration">Duration</string>
+    <string name="whoops">Whoops!</string>
+    <string name="sort">Sort</string>
+    <string name="favorite">Favorite</string>
+    <string name="misc">Misc</string>
+    <string name="discover">Discover</string>
+    <string name="no_result_found">No result found</string>
+    <string name="maybe_mistyped">Maybe you have mistyped the title or…?</string>
+    <string name="trailer">Trailer</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="rating">Rating</string>
+    <string name="source">Source</string>
+    <string name="season">Season</string>
 </resources>

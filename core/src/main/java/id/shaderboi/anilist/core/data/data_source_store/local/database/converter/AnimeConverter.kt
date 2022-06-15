@@ -2,9 +2,7 @@ package id.shaderboi.anilist.core.data.data_source_store.local.database.converte
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.squareup.moshi.Types
-import id.shaderboi.anilist.core.domain.model.anime_search.AnimeSearch
-import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
+import id.shaderboi.anilist.core.data.model.common.anime.AnimeData
 
 @ProvidedTypeConverter
 class AnimeConverter(

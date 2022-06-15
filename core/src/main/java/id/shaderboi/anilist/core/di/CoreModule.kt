@@ -19,6 +19,9 @@ import id.shaderboi.anilist.core.domain.repository.AnimeRepository
 import id.shaderboi.anilist.core.domain.repository.FavoriteAnimeRepository
 import id.shaderboi.anilist.core.util.preference.AppPreferenceStore
 import id.shaderboi.anilist.core.util.preference.AppPreferenceStoreImpl
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -27,15 +30,26 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object CoreModule {
+    const val JIKAN_HOSTNAME = "api.jikan.moe"
+    const val DATABASE_KEY = "anilist"
+
     @Singleton
     @Provides
-    fun provideJikanAPIService(@ApplicationContext context: Context): JikanAPIService {
-        val client = OkHttpClient.Builder()
-            .addInterceptor(NetworkInterceptor(context))
+    fun provideOkHttpClient(@ApplicationContext context: Context): OkHttpClient {
+        val certificatePinner = CertificatePinner.Builder()
+            .add(JIKAN_HOSTNAME, "sha256/D19JhbQhM7FIf4y+0wu/jEXrlR9AwOpSTH8Bp46Fr/I=")
             .build()
+        return OkHttpClient.Builder()
+            .addInterceptor(NetworkInterceptor(context))
+            .certificatePinner(certificatePinner)
+            .build()
+    }
 
+    @Singleton
+    @Provides
+    fun provideJikanAPIService(okHttpClient: OkHttpClient): JikanAPIService {
         val retrofit = Retrofit.Builder()
-            .client(client)
+            .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .baseUrl("https://api.jikan.moe/v4/")
             .build()
@@ -50,10 +64,17 @@ object CoreModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context): AnilistDatabase {
-        val moshi = Moshi.Builder().build()
+    fun provideMoshi(): Moshi = Moshi.Builder().build()
+
+    @Singleton
+    @Provides
+    fun provideDatabase(@ApplicationContext context: Context, moshi: Moshi): AnilistDatabase {
+        val passphrase = SQLiteDatabase.getBytes(DATABASE_KEY.toCharArray())
+        val factory = SupportFactory(passphrase)
+
         return Room.databaseBuilder(context, AnilistDatabase::class.java, "anilist")
             .addTypeConverter(AnimeConverter(MoshiJSONParser(moshi)))
+            .openHelperFactory(factory)
             .build()
     }
 

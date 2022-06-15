@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import id.shaderboi.anilist.R
-import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
+import id.shaderboi.anilist.core.domain.model.anime.Anime
 import id.shaderboi.anilist.databinding.ItemAnimeBinding
 
 class AnimePagingAdapter(
-    private val onClickAnime: (AnimeData, Int, View) -> Unit,
-    diffCallback: DiffUtil.ItemCallback<AnimeData>
+    private val onClickAnime: (Anime, Int, View) -> Unit,
+    diffCallback: DiffUtil.ItemCallback<Anime>
 ) :
-    PagingDataAdapter<AnimeData, AnimePagingAdapter.RecipeViewHolder>(diffCallback) {
+    PagingDataAdapter<Anime, AnimePagingAdapter.RecipeViewHolder>(diffCallback) {
 
     class RecipeViewHolder(val binding: ItemAnimeBinding) :
         RecyclerView.ViewHolder(binding.root)

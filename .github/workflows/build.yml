@@ -15,8 +15,14 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
-      - name: Build SampleApplication
+      - name: Set permissions
         run: chmod +x gradlew
 
-      - name: Build SampleApplication
-        run: ./gradlew --no-daemon build
+      - name: Pull dependencies
+        run: ./gradlew androidDependencies
+
+      - name: Run tests
+        run: ./gradlew lint test
+
+      - name: Build app
+        run: ./gradlew build

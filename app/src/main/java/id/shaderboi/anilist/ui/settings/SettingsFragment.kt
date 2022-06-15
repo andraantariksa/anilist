@@ -1,10 +1,7 @@
 package id.shaderboi.anilist.ui.settings
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
@@ -16,10 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.shaderboi.anilist.R
 import id.shaderboi.anilist.core.util.Theme
 import id.shaderboi.anilist.core.util.preference.AppPreferenceStore
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
-import java.lang.IllegalStateException
 import javax.inject.Inject
 
 @AndroidEntryPoint

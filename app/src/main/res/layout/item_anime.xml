@@ -18,6 +18,7 @@
         android:layout_gravity="center">
 
         <ImageView
+            android:contentDescription="@string/anime_featured_image"
             android:id="@+id/imageViewCover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,32 +30,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:paddingBottom="10dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#80FFFFFF"
-                android:divider="@drawable/spacer_8dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingStart="5dp"
-                android:paddingTop="3dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="3dp"
-                android:showDividers="middle">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_baseline_star_24" />
+            android:background="#80FFFFFF"
+            android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:paddingStart="5dp"
+                    android:paddingTop="3dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="3dp"
+
                     android:id="@+id/textViewScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="7.35" />
-            </LinearLayout>
+                    tools:text="7.35"
+                    app:drawableStartCompat="@drawable/ic_baseline_star_24" />
         </FrameLayout>
 
     </FrameLayout>

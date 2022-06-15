@@ -1,7 +1,6 @@
 package id.shaderboi.anilist.core.util
 
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.squareup.moshi.JsonClass
 
 data class AppSettings(
     val theme: Theme = Theme.Default

@@ -1,399 +1,395 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:expandedTitleGravity="bottom"-->
+        <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:liftOnScroll="true">
+            android:background="?attr/colorPrimary"
+            android:elevation="12dp"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:menu="@menu/toolbar_buttons_anime">
 
-            <!--        <com.google.android.material.appbar.CollapsingToolbarLayout-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            app:expandedTitleGravity="bottom"-->
-            <!--            app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
+        </androidx.appcompat.widget.Toolbar>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:elevation="12dp"
-                android:minHeight="?attr/actionBarSize"
-                app:menu="@menu/toolbar_buttons_anime"
-                app:layout_collapseMode="pin">
+        <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
+    </com.google.android.material.appbar.AppBarLayout>
 
-            </androidx.appcompat.widget.Toolbar>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <!--        </com.google.android.material.appbar.CollapsingToolbarLayout>-->
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <FrameLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ScrollView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
-                <FrameLayout
+                <LinearLayout
+                    android:id="@+id/linearLayoutContent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:divider="@drawable/spacer_8dp"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="20dp"
+                    android:showDividers="middle">
+
+                    <TextView
+                        android:id="@+id/textViewTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        tools:text="Mahouka Koukou no Rettousei Mahouka Koukou no Rettousei abc xyz" />
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/flexboxLayoutInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:dividerDrawable="@drawable/spacer_8dp"
+                        app:flexWrap="wrap"
+                        app:showDivider="middle" />
+
+                    <ImageView
+                        android:contentDescription="@string/anime_main_image"
+                        android:id="@+id/imageViewCover"
+                        android:layout_width="wrap_content"
+                        android:layout_height="300dp"
+                        android:layout_gravity="center_horizontal"
+                        android:adjustViewBounds="true"
+                        android:maxWidth="300dp"
+                        android:paddingBottom="8dp"
+                        android:scaleType="fitXY"
+                        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                     <LinearLayout
-                        android:id="@+id/linearLayoutContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="@drawable/spacer_8dp"
+                        android:orientation="vertical"
+                        android:showDividers="middle">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutTitleEnglish"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/english_title"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewTitleEnglish"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="Cowboy Bebop " />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutTitleJapanese"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/japanese_title"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewTitleJapanese"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="カウボーイビバップ " />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutTitleAlternative"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/alternative_title"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewTitleAlternative"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="カウボーイビバップ , カウボーイビバップ " />
+
+                        </LinearLayout>
+
+                        <androidx.gridlayout.widget.GridLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:columnCount="2"
+                            app:useDefaultMargins="true">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/licensor"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewLicensor"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Funimation, Bandai Entertainment, Sunrise" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/aired"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewAired"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Jul 2, 2002 to Dec 24, 2002" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/duration"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewDuration"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="25 min per ep " />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/season"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewSeason"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="summer" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/source"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewSource"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Manga" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:orientation="vertical"
+                                app:layout_columnWeight="1"
+                                app:layout_gravity="fill_horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/rating"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewRating"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:text="PG-13 - Teens 13 or older" />
+                            </LinearLayout>
+                        </androidx.gridlayout.widget.GridLayout>
+                    </LinearLayout>
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/flexboxLayoutGenres"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:dividerDrawable="@drawable/spacer_8dp"
+                        app:flexWrap="wrap"
+                        app:justifyContent="center"
+                        app:showDivider="middle"
+                        tools:layout_height="30dp" />
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:dividerDrawable="@drawable/spacer_8dp"
+                        app:flexDirection="row"
+                        app:flexWrap="wrap"
+                        app:justifyContent="center"
+                        app:showDivider="middle">
+
+                        <TextView
+                            android:id="@+id/textViewType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Movie" />
+
+                        <TextView
+                            android:id="@+id/textViewEpisode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="1 ep" />
+
+                        <TextView
+                            android:id="@+id/textViewAiringStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Finished Airing" />
+
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:divider="@drawable/spacer_8dp"
                         android:orientation="vertical"
-                        android:paddingStart="20dp"
-                        android:paddingTop="20dp"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="20dp"
                         android:showDividers="middle">
 
                         <TextView
-                            android:id="@+id/textViewTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="24sp"
-                            android:textStyle="bold"
-                            tools:text="Mahouka Koukou no Rettousei Mahouka Koukou no Rettousei abc xyz" />
+                            android:text="@string/synopsis"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
-                        <com.google.android.flexbox.FlexboxLayout
-                            android:id="@+id/flexboxLayoutInfo"
+                        <TextView
+                            android:id="@+id/textViewSynopsis"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:dividerDrawable="@drawable/spacer_8dp"
-                            app:flexWrap="wrap"
-                            app:showDivider="middle" />
-
-                        <ImageView
-                            android:id="@+id/imageViewCover"
-                            android:layout_width="wrap_content"
-                            android:layout_height="300dp"
-                            android:layout_gravity="center_horizontal"
-                            android:adjustViewBounds="true"
-                            android:maxWidth="300dp"
-                            android:paddingBottom="8dp"
-                            android:scaleType="fitXY"
-                            tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:divider="@drawable/spacer_8dp"
-                            android:orientation="vertical"
-                            android:showDividers="middle">
-
-                            <LinearLayout
-                                android:id="@+id/linearLayoutTitleEnglish"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/english_title"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:id="@+id/textViewTitleEnglish"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    tools:text="Cowboy Bebop " />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/linearLayoutTitleJapanese"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/japanese_title"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:id="@+id/textViewTitleJapanese"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    tools:text="カウボーイビバップ " />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/linearLayoutTitleAlternative"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/alternative_title"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:id="@+id/textViewTitleAlternative"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    tools:text="カウボーイビバップ , カウボーイビバップ " />
-
-                            </LinearLayout>
-
-                            <androidx.gridlayout.widget.GridLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:columnCount="2"
-                                app:useDefaultMargins="true">
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:orientation="vertical"
-                                    app:layout_columnWeight="1"
-                                    app:layout_gravity="fill_horizontal">
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/licensor"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/textViewLicensor"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        tools:text="Funimation, Bandai Entertainment, Sunrise" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:orientation="vertical"
-                                    app:layout_columnWeight="1"
-                                    app:layout_gravity="fill_horizontal">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/aired"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/textViewAired"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        tools:text="Jul 2, 2002 to Dec 24, 2002" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:orientation="vertical"
-                                    app:layout_columnWeight="1"
-                                    app:layout_gravity="fill_horizontal">
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="Duration"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/textViewDuration"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        tools:text="25 min per ep " />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:orientation="vertical"
-                                    app:layout_columnWeight="1"
-                                    app:layout_gravity="fill_horizontal">
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="Season"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/textViewSeason"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        tools:text="summer" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:orientation="vertical"
-                                    app:layout_columnWeight="1"
-                                    app:layout_gravity="fill_horizontal">
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="Source"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/textViewSource"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        tools:text="Manga" />
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:orientation="vertical"
-                                    app:layout_columnWeight="1"
-                                    app:layout_gravity="fill_horizontal">
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="Rating"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/textViewRating"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        tools:text="PG-13 - Teens 13 or older" />
-                                </LinearLayout>
-                            </androidx.gridlayout.widget.GridLayout>
-                        </LinearLayout>
-
-                        <com.google.android.flexbox.FlexboxLayout
-                            android:id="@+id/flexboxLayoutGenres"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:dividerDrawable="@drawable/spacer_8dp"
-                            app:flexWrap="wrap"
-                            app:justifyContent="center"
-                            app:showDivider="middle"
-                            tools:layout_height="30dp" />
-
-                        <com.google.android.flexbox.FlexboxLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:dividerDrawable="@drawable/spacer_8dp"
-                            app:flexDirection="row"
-                            app:flexWrap="wrap"
-                            app:justifyContent="center"
-                            app:showDivider="middle">
-
-                            <TextView
-                                android:id="@+id/textViewType"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="Movie" />
-
-                            <TextView
-                                android:id="@+id/textViewEpisode"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="1 ep" />
-
-                            <TextView
-                                android:id="@+id/textViewAiringStatus"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="Finished Airing" />
-
-                        </com.google.android.flexbox.FlexboxLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:divider="@drawable/spacer_8dp"
-                            android:orientation="vertical"
-                            android:showDividers="middle">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Synopsis"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/textViewSynopsis"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                tools:text="Gintoki, Shinpachi, and Kagura return as the fun-loving but broke members of the Yorozuya team! Living in an alternate-reality Edo, where swords are prohibited and alien overlords have conquered Japan, they try to thrive on doing whatever work they can get their hands on. However, Shinpachi and Kagura still haven't been paid... Does Gin-chan really spend all that cash playing pachinko?  Meanwhile, when Gintoki drunkenly staggers home one night, an alien spaceship crashes nearby. A fatally injured crew member emerges from the ship and gives Gintoki a strange, clock-shaped device, warning him that it is incredibly powerful and must be safeguarded. Mistaking it for his alarm clock," />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/linearLayoutYoutube"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:divider="@drawable/spacer_8dp"
-                            android:orientation="vertical"
-                            android:showDividers="middle"
-                            android:visibility="gone"
-                            tools:visibility="visible">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Trailer"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                                android:id="@+id/youtubePlayerView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:autoPlay="false"
-                                app:enableAutomaticInitialization="false" />
-                        </LinearLayout>
-
+                            tools:text="Gintoki, Shinpachi, and Kagura return as the fun-loving but broke members of the Yorozuya team! Living in an alternate-reality Edo, where swords are prohibited and alien overlords have conquered Japan, they try to thrive on doing whatever work they can get their hands on. However, Shinpachi and Kagura still haven't been paid... Does Gin-chan really spend all that cash playing pachinko?  Meanwhile, when Gintoki drunkenly staggers home one night, an alien spaceship crashes nearby. A fatally injured crew member emerges from the ship and gives Gintoki a strange, clock-shaped device, warning him that it is incredibly powerful and must be safeguarded. Mistaking it for his alarm clock," />
                     </LinearLayout>
 
-                    <include
-                        android:id="@+id/includeViewErrorAnimation"
-                        layout="@layout/view_error_animation" />
+                    <LinearLayout
+                        android:id="@+id/linearLayoutYoutube"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@drawable/spacer_8dp"
+                        android:orientation="vertical"
+                        android:showDividers="middle"
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
-                    <include
-                        android:id="@+id/includeViewLoadingAnimation"
-                        layout="@layout/view_loading_animation" />
-                </FrameLayout>
-            </ScrollView>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/trailer"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
-            <FrameLayout
+                        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                            android:id="@+id/youtubePlayerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:autoPlay="false"
+                            app:enableAutomaticInitialization="false" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/includeViewErrorAnimation"
+                    layout="@layout/view_error_animation" />
+
+                <include
+                    android:id="@+id/includeViewLoadingAnimation"
+                    layout="@layout/view_loading_animation" />
+            </FrameLayout>
+        </ScrollView>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="10dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButtonFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:paddingEnd="10dp"
-                android:paddingBottom="10dp">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingActionButtonFavorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:contentDescription="@string/set_as_favorite_anime"
-                    android:src="@drawable/ic_baseline_favorite_24"
-                    android:focusable="true" />
-            </FrameLayout>
-
+                android:clickable="true"
+                android:contentDescription="@string/set_as_favorite_anime"
+                android:focusable="true"
+                android:src="@drawable/ic_baseline_favorite_24" />
         </FrameLayout>
 
+    </FrameLayout>
 
-    </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

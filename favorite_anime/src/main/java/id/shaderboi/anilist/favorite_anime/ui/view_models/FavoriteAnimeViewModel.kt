@@ -4,14 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import id.shaderboi.anilist.core.domain.use_case.favorite_anime.FavoriteAnimeUseCases
-import id.shaderboi.anilist.ui.util.ResourceState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import javax.inject.Inject
 
 class FavoriteAnimeViewModel @Inject constructor(
-    private val favoriteAnimeUseCases: FavoriteAnimeUseCases
+    favoriteAnimeUseCases: FavoriteAnimeUseCases
 ) : ViewModel() {
     private val _uiEvent = MutableSharedFlow<FavoriteAnimeUIEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
@@ -24,6 +22,7 @@ class FavoriteAnimeViewModel @Inject constructor(
 
     fun onEvent(animeEvent: FavoriteAnimeEvent) {
         when (animeEvent) {
+            FavoriteAnimeEvent.Load -> {}
         }
     }
 }

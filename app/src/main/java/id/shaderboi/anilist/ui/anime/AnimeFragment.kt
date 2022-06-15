@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -19,14 +18,13 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import dagger.hilt.android.AndroidEntryPoint
 import id.shaderboi.anilist.R
-import id.shaderboi.anilist.core.domain.model.common.anime.AnimeData
+import id.shaderboi.anilist.core.domain.model.anime.Anime
 import id.shaderboi.anilist.databinding.FragmentAnimeBinding
 import id.shaderboi.anilist.databinding.ItemGenreBinding
 import id.shaderboi.anilist.ui.anime.view_models.AnimeEvent
 import id.shaderboi.anilist.ui.anime.view_models.AnimeViewModel
 import id.shaderboi.anilist.ui.util.ResourceState
 import kotlinx.coroutines.flow.collectLatest
-import java.lang.IllegalStateException
 
 @AndroidEntryPoint
 class AnimeFragment : Fragment() {
@@ -74,7 +72,7 @@ class AnimeFragment : Fragment() {
         super.onDestroy()
     }
 
-    private fun setContentVisibility(res: ResourceState<AnimeData, Throwable>) {
+    private fun setContentVisibility(res: ResourceState<Anime, Throwable>) {
         binding.apply {
             when (res) {
                 is ResourceState.Error -> {
@@ -109,7 +107,7 @@ class AnimeFragment : Fragment() {
         startActivity(shareIntent)
     }
 
-    private fun bindTitle(animeData: AnimeData) {
+    private fun bindTitle(animeData: Anime) {
         binding.apply {
             textViewTitle.text = animeData.title
 
