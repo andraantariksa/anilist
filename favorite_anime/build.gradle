@@ -19,7 +19,6 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -49,7 +48,7 @@ dependencies {
     // Layout
     implementation "com.airbnb.android:lottie:$lottieVersion"
     implementation "androidx.recyclerview:recyclerview:1.2.1"
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.6.1'
 
     // Misc
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
