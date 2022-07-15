@@ -10,7 +10,7 @@ data class Producer(
     @Json(name = "name")
     val name: String,
     @Json(name = "type")
-    val type: String,
+    val type: String?,
     @Json(name = "url")
     val url: String
 )

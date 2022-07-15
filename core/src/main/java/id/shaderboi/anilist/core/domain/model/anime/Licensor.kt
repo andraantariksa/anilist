@@ -3,6 +3,6 @@ package id.shaderboi.anilist.core.domain.model.anime
 data class Licensor(
     val malId: Int,
     val name: String,
-    val type: String,
+    val type: String?,
     val url: String
 )

@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     val binding get() = _binding!!
 
-    private lateinit var pagingAdapter: AnimePagingAdapter
+    private var pagingAdapter: AnimePagingAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,15 +42,16 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
+        super.onDestroyView()
+        pagingAdapter = null
         _binding = null
-        super.onDestroy()
     }
 
     private fun setupView() {
         val navController = findNavController()
         pagingAdapter = AnimePagingAdapter(
-            { anime, position, view ->
+            { anime, _, _ ->
                 val action = HomeFragmentDirections
                     .actionNavigationHomeMainToNavigationCommonAnime(anime.malId)
                 navController.navigate(action)
@@ -73,7 +74,7 @@ class HomeFragment : Fragment() {
 
     private fun listenEvent() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
         launch {
-            pagingAdapter.loadStateFlow.collectLatest { loadStates ->
+            pagingAdapter!!.loadStateFlow.collectLatest { loadStates ->
                 val refreshState = loadStates.refresh
                 binding.includeViewLoadingAnimation.root.isVisible = refreshState is LoadState.Loading
                 binding.recyclerViewAnimes.isVisible = refreshState !is LoadState.Loading
@@ -86,7 +87,7 @@ class HomeFragment : Fragment() {
 
         launch {
             homeViewModel.animeList.collectLatest { pagingData ->
-                pagingAdapter.submitData(pagingData)
+                pagingAdapter?.submitData(pagingData)
             }
         }
     }

@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         return navController.popBackStack() || super.onSupportNavigateUp()
     }
 
-    override fun onDestroy() {
+    override fun onStop() {
         _binding = null
-        super.onDestroy()
+        super.onStop()
     }
 }

@@ -6,6 +6,7 @@ import dagger.hilt.android.HiltAndroidApp
 import id.shaderboi.anilist.core.util.Theme
 import id.shaderboi.anilist.core.util.preference.AppPreferenceStore
 import id.shaderboi.anilist.util.log.ReleaseTree
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collectLatest
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class AnilistApplication : Application() {
-    var applicationScope = MainScope()
+    private var applicationScope: CoroutineScope? = null
 
     @Inject
     lateinit var appPreferenceStore: AppPreferenceStore
@@ -29,21 +30,28 @@ class AnilistApplication : Application() {
             Timber.plant(ReleaseTree())
         }
 
-        applicationScope.launch {
-            appPreferenceStore.preference().collectLatest { appSettings ->
-                val themeAppCompat = when (appSettings.theme) {
-                    Theme.Default -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                    Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
-                    Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
+        applicationScope = MainScope().apply {
+            launch {
+                appPreferenceStore.preference().collectLatest { appSettings ->
+                    val themeAppCompat = when (appSettings.theme) {
+                        Theme.Default -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                        Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
+                        Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
+                    }
+                    AppCompatDelegate.setDefaultNightMode(themeAppCompat)
                 }
-                AppCompatDelegate.setDefaultNightMode(themeAppCompat)
             }
         }
     }
 
+    override fun onTerminate() {
+        applicationScope = null
+        super.onTerminate()
+    }
+
     override fun onLowMemory() {
         super.onLowMemory()
-        applicationScope.cancel()
+        applicationScope?.cancel()
         applicationScope = MainScope()
     }
 }

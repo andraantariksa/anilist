@@ -27,7 +27,7 @@ class SearchFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     val binding get() = _binding!!
 
-    private lateinit var pagingAdapter: AnimePagingAdapter
+    private var pagingAdapter: AnimePagingAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +41,10 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
+        super.onDestroyView()
+        pagingAdapter = null
         _binding = null
-        super.onDestroy()
     }
 
     private fun setupView() {
@@ -56,7 +57,7 @@ class SearchFragment : Fragment() {
         }
         val navController = findNavController()
         pagingAdapter = AnimePagingAdapter(
-            { anime, position, view ->
+            { anime, _, _ ->
                 val action = SearchFragmentDirections
                     .actionNavigationSearchMainToNavigationCommonAnime(anime.malId)
                 navController.navigate(action)
@@ -79,7 +80,7 @@ class SearchFragment : Fragment() {
 
     private fun listenEvent() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
         launch {
-            pagingAdapter.loadStateFlow.collectLatest { loadStates ->
+            pagingAdapter!!.loadStateFlow.collectLatest { loadStates ->
                 val refreshState = loadStates.refresh
                 binding.linearLayoutLoadingAnimation.isVisible = refreshState is LoadState.Loading
                 binding.recyclerViewSearchedAnime.isVisible = refreshState !is LoadState.Loading
@@ -99,7 +100,7 @@ class SearchFragment : Fragment() {
                 binding.includeViewErrorAnimation.root.isVisible = !isIdle
 
                 pagingDataFlow?.collectLatest { pagingData ->
-                    pagingAdapter.submitData(pagingData)
+                    pagingAdapter?.submitData(pagingData)
                 }
             }
         }

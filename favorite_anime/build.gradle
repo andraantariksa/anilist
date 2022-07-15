@@ -17,8 +17,14 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
+        defaultConfig {
+//            SHOULD NOT BE SET FROM THE FEATURE MODULE!
+//            "You can enable code shrinking for your entire app project from only the base module’s
+//            build configuration"
+//            See https://developer.android.com/guide/playcore/feature-delivery#what_to_omit
+//
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }

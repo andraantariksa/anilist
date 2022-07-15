@@ -32,7 +32,7 @@ data class Anime(
     val titleJapanese: String?,
     val titleSynonyms: List<String>,
     val trailer: Trailer?,
-    val type: String,
+    val type: String?,
     val url: String,
     val year: Int?
 )

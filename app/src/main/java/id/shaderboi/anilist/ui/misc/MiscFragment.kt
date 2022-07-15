@@ -66,9 +66,9 @@ class MiscFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
-        super.onDestroy()
     }
 
     private fun listenEvent() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
